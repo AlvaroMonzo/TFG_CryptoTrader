@@ -1,55 +1,46 @@
-from tkinter import Tk, Label, Button
+import tkinter
 
 
-class VentanaEjemplo:
-    def __init__(self,root):
-        self.master = root
-        root.title("Una simple interfaz gráfica")
-        root.configure(background='black')
+def ventanaLogin():
+        ventana=tkinter.Tk()
+        ventana.geometry("1000x1000")
+        #etiqueta= tkinter.Label(ventana, text = "hola Mundo", bg = "red")
+        #side (BOTTOM, TOP), FILL= tkinter.X , fill = tkinter.Y , expand = True
+        #etiqueta.pack()
 
-        self.botonInicio = Button(root, text="INICIAR", command=self.saludar)
-        self.botonInicio.place(x=250,y=75, width=500, height=250)
-
-        self.botonInstrucciones = Button(root, text="Instrucciones")
-        self.botonInstrucciones.place(x=850,y=350, width=100, height=50)
-
-        self.botonSalir = Button(root, text="Salir", command=root.quit)
-        self.botonSalir .place(x=50,y=350, width=100, height=50)
-
-        root.title("CRYPTO-TRADER")
-        root.wm_geometry("1000x450")
-        root.minsize(1000, 450)
-
-    def saludar(self):
-        print("¡Hey!")
-
-        miVentana2=Ventana2(root)
+        #command = lambda: saludo("Álvaro")
+        #boton1=tkinter.Button(ventana, text = "Instrucciones", padx = 40 , pady = 60 , command = lambda: saludo("Álvaro"))
+        #boton1.pack()
+        #boton1 = tkinter.Button(ventana, text="boton 1" , width = 10, height = 5)
+        #boton2 = tkinter.Button(ventana, text="boton 2", width = 10, height = 5)
+        #boton3 = tkinter.Button(ventana, text="boton 3", width = 10, height = 5)
+        #boton1.grid(row = 0 , column = 2)
+        #boton2.grid(row=1, column=0)
+        #boton3.grid(row=2, column=1)
 
 
-class Ventana2:
-    def __init__(self,root):
-        self.master = root
-        root.title("Una simple interfaz gráfica")
-        root.configure(background='red')
+        #ventana.mainloop()
 
-        self.botonInicio = Button(root, text="COntinuar", command=self.saludar)
-        self.botonInicio.place(x=250,y=75, width=500, height=250)
+"""
+        cajaTexto = tkinter.Entry(ventana)
+        cajaTexto.pack()
 
-        self.botonInstrucciones = Button(root, text="Instrucciones")
-        self.botonInstrucciones.place(x=850,y=350, width=100, height=50)
+        boton1 = tkinter.Button(ventana, text= "click" , command = lambda :textoDeLaCaja(cajaTexto,etiqueta))
+        boton1.pack()
 
-        self.botonSalir = Button(root, text="Salir", command=root.quit)
-        self.botonSalir .place(x=50,y=350, width=100, height=50)
+        etiqueta = tkinter.Label(ventana)
+        etiqueta.pack()
 
-        root.title("CRYPTO-TRADER")
-        root.wm_geometry("1000x450")
-        root.minsize(1000, 450)
+        
+        print("Esta es la ventana principal")
+"""
 
-    def saludar(self):
-        print("¡Hey!")
-        miVentana2=Ventana2(root)
 
-root = Tk()
-miVentana = VentanaEjemplo(root)
 
-root.mainloop()
+def saludo (nombre):
+        print("hola bb" + nombre)
+
+def textoDeLaCaja(cajaTexto,etiqueta):
+        textoCaja= cajaTexto.get()
+        etiqueta["text"] = textoCaja
+        print(textoCaja)
