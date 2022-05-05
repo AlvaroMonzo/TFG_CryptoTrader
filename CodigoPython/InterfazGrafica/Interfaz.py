@@ -1,42 +1,89 @@
 import tkinter
 
+from binance.client import Client
 
-<<<<<<< Updated upstream
+#Ventana login
+
 def ventanaLogin():
-        ventana=tkinter.Tk()
-        ventana.geometry("1000x1000")
-        #etiqueta= tkinter.Label(ventana, text = "hola Mundo", bg = "red")
-        #side (BOTTOM, TOP), FILL= tkinter.X , fill = tkinter.Y , expand = True
-        #etiqueta.pack()
+    global client,textFieldAPIkey, textFieldSecretKey, ventana
+    ventana = tkinter.Tk()
+    ventana.geometry("400x200+100+100")
+    ventana.resizable(width=False, height=False)
+    ventana.title("CRYPTO TRADER")
 
-        #command = lambda: saludo("Álvaro")
-        #boton1=tkinter.Button(ventana, text = "Instrucciones", padx = 40 , pady = 60 , command = lambda: saludo("Álvaro"))
-        #boton1.pack()
-        #boton1 = tkinter.Button(ventana, text="boton 1" , width = 10, height = 5)
-        #boton2 = tkinter.Button(ventana, text="boton 2", width = 10, height = 5)
-        #boton3 = tkinter.Button(ventana, text="boton 3", width = 10, height = 5)
-        #boton1.grid(row = 0 , column = 2)
-        #boton2.grid(row=1, column=0)
-        #boton3.grid(row=2, column=1)
-=======
-class VentanaEjemplo:
+    labelAPIkey = tkinter.Label(ventana, text="API Key:")
+    labelAPIkey.grid(padx=10, pady=10, row=0, column=0)
 
-    def __init__(self,root):
-        self.master = root
-        root.title("Una simple interfaz gráfica")
-        root.configure(background='black')
-
-        self.botonInicio = Button(root, text="INICIAR", command=self.saludar(root))
-        self.botonInicio.place(x=250,y=75, width=500, height=250)
->>>>>>> Stashed changes
+    textFieldAPIkey = tkinter.Entry(ventana, bg="white", width=40)
+    textFieldAPIkey.grid(padx=10, pady=10, row=0, column=1)
+    textFieldAPIkey.insert(0, "WFvHi2sNONLatAPXFueeH1LyiFGFSCa8TKENqDMKY1vz236M6ABnefDxw5dkTGZm")
 
 
-<<<<<<< Updated upstream
-        #ventana.mainloop()
-=======
-        self.botonSalir = Button(self.master, text="Salir", command=root.quit)
-        self.botonSalir .place(x=50,y=350, width=100, height=50)
->>>>>>> Stashed changes
+    labelSecretKey = tkinter.Label(ventana, text="Secret Key:")
+    labelSecretKey.grid(padx=10, pady=10, row=1, column=0)
+
+    textFieldSecretKey = tkinter.Entry(ventana, bg="white", width=40)
+    textFieldSecretKey.grid(padx=10, pady=10, row=1, column=1)
+    textFieldSecretKey.insert(0, "Z45Y85Qn4eN0nJbb2rd6wStVyJcAXd19UbqRgcEEYsCS7NK3QduyHRC3XGSJURBh")
+
+    buttonLogin = tkinter.Button(ventana, text="Login",
+                                 command=lambda: login(textFieldAPIkey, textFieldSecretKey, ventana))
+    buttonLogin.grid(rowspan=2, column=2, row=0)
+
+    ventana.bind('<Return>', loginEnter)
+    ventana.mainloop()
+    return client
+
+def login(textFieldAPIkey, textFieldSecretKey, ventana):
+    global client
+    APIkey = textFieldAPIkey.get()
+    SecretKey = textFieldSecretKey.get()
+    print("Api key = " + APIkey)
+    print("Secret Key = " + SecretKey)
+    try:
+        client = Client(APIkey, SecretKey)
+        ventana.destroy()
+    except:
+        cargandoLabel=tkinter.Label(ventana,text="Error, vuelve a introducir los datos...", fg="red")
+        cargandoLabel.grid(row=2, column=0, columnspan=2)
+
+        print("An exception occurred")
+
+def loginEnter(event):
+
+    login(textFieldAPIkey, textFieldSecretKey, ventana)
+
+#Eleccion
+
+def ventanaEleccion(client):
+    ventanaE=tkinter.Tk()
+    ventanaE.geometry("800x600+100+50")
+    ventanaE.resizable(width=False, height=False)
+    ventanaE.title("CRYPTO TRADER")
+    botonEstadisticas=tkinter.Button(ventanaE,text="Estadísticas", width = 20, height = 5)
+    botonEstadisticas.grid(padx=10, pady=10,row=0,column=0)
+    botonInicio=tkinter.Button(ventanaE,text="Inicio", width = 20, height = 5)
+    botonInicio.grid(padx=10, pady=10,row=0,column=1)
+    botonInstrucciones=tkinter.Button(ventanaE,text="Instrucciones", width = 20, height = 5)
+    botonInstrucciones.grid(padx=10, pady=10,row=0,column=2)
+    ventanaE.mainloop()
+
+
+
+        # etiqueta= tkinter.Label(ventana, text = "hola Mundo", bg = "red")
+        # side (BOTTOM, TOP), FILL= tkinter.X , fill = tkinter.Y , expand = True
+        # etiqueta.pack()
+
+        # command = lambda: saludo("Álvaro")
+        # boton1=tkinter.Button(ventana, text = "Instrucciones", padx = 40 , pady = 60 , command = lambda: saludo("Álvaro"))
+        # boton1.pack()
+        # boton1 = tkinter.Button(ventana, text="boton 1" , width = 10, height = 5)
+        # boton2 = tkinter.Button(ventana, text="boton 2", width = 10, height = 5)
+        # boton3 = tkinter.Button(ventana, text="boton 3", width = 10, height = 5)
+        # boton1.grid(row = 0 , column = 2)
+        # boton2.grid(row=1, column=0)
+        # boton3.grid(row=2, column=1)
+
 
 """
         cajaTexto = tkinter.Entry(ventana)
@@ -57,43 +104,3 @@ class VentanaEjemplo:
         
         print("Esta es la ventana principal")
 """
-
-<<<<<<< Updated upstream
-
-=======
-
-class Ventana2:
-    def __init__(self,root):
-        self.master = root
-        root.title("Una simple interfaz gráfica")
-        root.configure(background='red')
-
-        self.botonInicio = Button(root, text="Continuar", command=self.saludar)
-        self.botonInicio.place(x=250,y=75, width=500, height=250)
->>>>>>> Stashed changes
-
-def saludo (nombre):
-        print("hola bb" + nombre)
-
-<<<<<<< Updated upstream
-def textoDeLaCaja(cajaTexto,etiqueta):
-        textoCaja= cajaTexto.get()
-        etiqueta["text"] = textoCaja
-        print(textoCaja)
-=======
-        self.botonSalir = Button(root, text="Salir", command=root.quit)
-        self.botonSalir .place(x=50,y=350, width=100, height=50)
-
-        root.title("CRYPTO-TRADER")
-        root.wm_geometry("1000x450")
-        root.minsize(1000, 450)
-
-    def saludar(self,root):
-        print("¡Ventana2!")
-        miVentana2=Ventana2(root)
-
-root = Tk()
-miVentana = VentanaEjemplo(root)
-
-root.mainloop()
->>>>>>> Stashed changes
