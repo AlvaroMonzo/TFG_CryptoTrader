@@ -2,18 +2,136 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="41399914-444b-4e4b-945c-736557b05506" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/CodigoPython/InterfazGrafica/Interfaz.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/TFG_CryptoTrader.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/TFG_CryptoTrader.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CodigoPython/Funciones/Funciones.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CodigoPython/Main/Main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Notas.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Notas.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CodigoPython/InterfazGrafica/Interfaz.py" beforeDir="false" afterPath="$PROJECT_DIR$/CodigoPython/InterfazGrafica/Interfaz.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+<<<<<<< Updated upstream
+=======
+  <component name="FUSProjectUsageTrigger">
+    <session id="171648242">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="5" />
+          <entry key="project.open.time.2" value="1" />
+          <entry key="project.open.time.4" value="1" />
+          <entry key="project.open.time.6" value="1" />
+          <entry key="project.open.time.7" value="1" />
+          <entry key="project.open.time.8" value="1" />
+          <entry key="project.opened" value="5" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="gitignore" value="1" />
+          <entry key="md" value="1" />
+          <entry key="py" value="10" />
+          <entry key="txt" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="PLAIN_TEXT" value="3" />
+          <entry key="Python" value="10" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="md" value="1" />
+          <entry key="py" value="1543" />
+          <entry key="txt" value="11" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="Markdown" value="1" />
+          <entry key="PLAIN_TEXT" value="11" />
+          <entry key="Python" value="1543" />
+        </counts>
+      </usages-collector>
+    </session>
+  </component>
+  <component name="FileEditorManager">
+    <splitter split-orientation="horizontal" split-proportion="0.5">
+      <split-first>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/.gitignore">
+              <provider selected="true" editor-type-id="text-editor" />
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/Notas.txt">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="221">
+                  <caret line="10" column="59" lean-forward="true" selection-start-line="10" selection-start-column="9" selection-end-line="10" selection-end-column="59" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/README.md">
+              <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+                <state split_layout="SPLIT">
+                  <first_editor>
+                    <caret column="19" selection-start-column="19" selection-end-column="19" />
+                  </first_editor>
+                  <second_editor />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/CodigoPython/InterfazGrafica/Interfaz.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="102">
+                  <caret line="6" column="26" lean-forward="true" selection-start-line="6" selection-start-column="26" selection-end-line="6" selection-end-column="26" />
+                  <folding>
+                    <marker date="1651227125940" expanded="true" signature="785:794" ph="..." />
+                    <marker date="1651227125940" expanded="true" signature="861:866" ph="..." />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/CodigoPython/Funciones/Funciones.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="85">
+                  <caret line="5" selection-start-line="5" selection-end-line="5" />
+                  <folding>
+                    <marker date="1651229763499" expanded="true" signature="43:48" ph="..." />
+                    <marker date="1651229763499" expanded="true" signature="43:141" ph="..." />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/CodigoPython/Main/Main.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="85">
+                  <caret line="5" selection-start-line="5" selection-end-line="5" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
+  </component>
+>>>>>>> Stashed changes
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -24,6 +142,23 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+<<<<<<< Updated upstream
+=======
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/CodigoPython/Interfaz.py" />
+        <option value="$PROJECT_DIR$/Notas.txt" />
+        <option value="$PROJECT_DIR$/CodigoPython/InterfazGrafica/Main.py" />
+        <option value="$PROJECT_DIR$/CodigoPython/InterfazGrafica/Interfaz.py" />
+        <option value="$PROJECT_DIR$/CodigoPython/Funciones/__init__.py" />
+        <option value="$PROJECT_DIR$/CodigoPython/Funciones/Funciones.py" />
+        <option value="$PROJECT_DIR$/CodigoPython/Main/Main.py" />
+      </list>
+    </option>
+  </component>
+>>>>>>> Stashed changes
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="352" />
     <option name="y" value="-17" />
@@ -32,9 +167,57 @@
   </component>
   <component name="ProjectId" id="28hMlgJtMEH0Fdn7aX2rXbWw1bK" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+<<<<<<< Updated upstream
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
+=======
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Course" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="TFG_CryptoTrader" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TFG_CryptoTrader" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TFG_CryptoTrader" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TFG_CryptoTrader" type="462c0819:PsiDirectoryNode" />
+              <item name="CodigoPython" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TFG_CryptoTrader" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TFG_CryptoTrader" type="462c0819:PsiDirectoryNode" />
+              <item name="CodigoPython" type="462c0819:PsiDirectoryNode" />
+              <item name="Funciones" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TFG_CryptoTrader" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TFG_CryptoTrader" type="462c0819:PsiDirectoryNode" />
+              <item name="CodigoPython" type="462c0819:PsiDirectoryNode" />
+              <item name="InterfazGrafica" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TFG_CryptoTrader" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TFG_CryptoTrader" type="462c0819:PsiDirectoryNode" />
+              <item name="CodigoPython" type="462c0819:PsiDirectoryNode" />
+              <item name="Main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TFG_CryptoTrader" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Scratches and Consoles" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+>>>>>>> Stashed changes
   </component>
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$USER_HOME$" />
@@ -42,10 +225,28 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\GK\TFG_CryptoTrader\CodigoPython\Main" />
+      <recent name="C:\GK\TFG_CryptoTrader\CodigoPython" />
       <recent name="C:\GK\TFG_CryptoTrader\CodigoPython\InterfazGrafica" />
     </key>
   </component>
+<<<<<<< Updated upstream
   <component name="RunManager" selected="Python.Main">
+=======
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Python.Main (1)">
+>>>>>>> Stashed changes
     <configuration name="Interfaz (1)" type="PythonConfigurationType" factoryName="Python">
       <module name="TFG_CryptoTrader" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -88,7 +289,32 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+<<<<<<< Updated upstream
     <configuration name="Main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+=======
+    <configuration name="Main (1)" type="PythonConfigurationType" factoryName="Python">
+      <module name="TFG_CryptoTrader" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/CodigoPython/Main" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/CodigoPython/Main/Main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Main" type="PythonConfigurationType" factoryName="Python" temporary="true">
+>>>>>>> Stashed changes
       <module name="TFG_CryptoTrader" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -100,7 +326,32 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+<<<<<<< Updated upstream
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/CodigoPython/InterfazGrafica/Main.py" />
+=======
+      <option name="SCRIPT_NAME" value="C:\GK\TFG_CryptoTrader\CodigoPython\Main\Main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="__init__" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="TFG_CryptoTrader" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/CodigoPython/Funciones" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/CodigoPython/Funciones/__init__.py" />
+>>>>>>> Stashed changes
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -110,12 +361,22 @@
       <method v="2" />
     </configuration>
     <list>
+<<<<<<< Updated upstream
       <item itemvalue="Python.Interfaz (1)" />
+=======
+      <item itemvalue="Python.Main (1)" />
+      <item itemvalue="Python.Interfaz (1)" />
+      <item itemvalue="Python.__init__" />
+>>>>>>> Stashed changes
       <item itemvalue="Python.Interfaz" />
       <item itemvalue="Python.Main" />
     </list>
     <recent_temporary>
       <list>
+<<<<<<< Updated upstream
+=======
+        <item itemvalue="Python.__init__" />
+>>>>>>> Stashed changes
         <item itemvalue="Python.Main" />
         <item itemvalue="Python.Interfaz" />
       </list>
@@ -138,6 +399,7 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+<<<<<<< Updated upstream
   <component name="WindowStateProjectService">
     <state width="1899" height="321" key="GridCell.Tab.0.bottom" timestamp="1651669918321">
       <screen x="0" y="0" width="1920" height="1160" />
@@ -155,6 +417,71 @@
       <screen x="0" y="0" width="1920" height="1160" />
     </state>
     <state width="1899" height="321" key="GridCell.Tab.0.right/0.0.1920.1160/-1366.145.1366.728@0.0.1920.1160" timestamp="1651669918321" />
+=======
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/CodigoPython/InterfazGrafica/__init__.py" />
+    <entry file="file://$PROJECT_DIR$/CodigoPython/__init__.py" />
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CodigoPython/Main/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CodigoPython/Funciones/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Notas.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="10" column="59" lean-forward="true" selection-start-line="10" selection-start-column="9" selection-end-line="10" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider editor-type-id="text-editor">
+        <state>
+          <caret column="14" lean-forward="true" selection-start-column="14" selection-end-column="14" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor>
+            <caret column="19" selection-start-column="19" selection-end-column="19" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CodigoPython/InterfazGrafica/Interfaz.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="26" lean-forward="true" selection-start-line="6" selection-start-column="26" selection-end-line="6" selection-end-column="26" />
+          <folding>
+            <marker date="1651227125940" expanded="true" signature="785:794" ph="..." />
+            <marker date="1651227125940" expanded="true" signature="861:866" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CodigoPython/Funciones/Funciones.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
+          <folding>
+            <marker date="1651229763499" expanded="true" signature="43:48" ph="..." />
+            <marker date="1651229763499" expanded="true" signature="43:141" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CodigoPython/Main/Main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
+        </state>
+      </provider>
+    </entry>
+>>>>>>> Stashed changes
   </component>
   <component name="masterDetails">
     <states>
