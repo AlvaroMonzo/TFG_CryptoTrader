@@ -42,6 +42,8 @@ def login(textFieldAPIkey, textFieldSecretKey, ventana):
     print("Secret Key = " + SecretKey)
     try:
         client = Client(APIkey, SecretKey)
+        #Hago una solicitud de prueba
+        client.get_asset_balance(asset='BTC')
         ventana.destroy()
     except:
         cargandoLabel=tkinter.Label(ventana,text="Error, vuelve a introducir los datos...", fg="red")
@@ -56,18 +58,34 @@ def loginEnter(event):
 #Eleccion
 
 def ventanaEleccion(client):
+
+    global valor
+
     ventanaE=tkinter.Tk()
-    ventanaE.geometry("800x600+100+50")
+    ventanaE.geometry("800x280+100+50")
     ventanaE.resizable(width=False, height=False)
     ventanaE.title("CRYPTO TRADER")
-    botonEstadisticas=tkinter.Button(ventanaE,text="Estadísticas", width = 20, height = 5)
+
+    botonEstadisticas=tkinter.Button(ventanaE,text="Estadísticas", width = 30, height = 15,command=lambda: opcion(1,ventanaE))
     botonEstadisticas.grid(padx=10, pady=10,row=0,column=0)
-    botonInicio=tkinter.Button(ventanaE,text="Inicio", width = 20, height = 5)
+
+    botonInicio=tkinter.Button(ventanaE,text="Inicio", width = 30, height = 15,command=lambda: opcion(2,ventanaE))
     botonInicio.grid(padx=10, pady=10,row=0,column=1)
-    botonInstrucciones=tkinter.Button(ventanaE,text="Instrucciones", width = 20, height = 5)
+
+    botonInstrucciones=tkinter.Button(ventanaE,text="Instrucciones", width = 30, height = 15,command=lambda: opcion(3,ventanaE))
     botonInstrucciones.grid(padx=10, pady=10,row=0,column=2)
+
+    botonAtras=tkinter.Button(ventanaE,text="Atrás", width = 5, height = 2,command=lambda:opcion(4,ventanaE))
+    botonAtras.grid(padx=10, pady=10,row=0,column=3)
+
     ventanaE.mainloop()
 
+    return valor
+
+def opcion(opcionEscogida,ventanaE):
+    global valor
+    valor = opcionEscogida
+    ventanaE.destroy()
 
 
         # etiqueta= tkinter.Label(ventana, text = "hola Mundo", bg = "red")
