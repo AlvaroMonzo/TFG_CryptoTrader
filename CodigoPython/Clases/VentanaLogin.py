@@ -46,7 +46,25 @@ class VentanaLogin:
             self.client.get_asset_balance(asset='BTC')
 
             ventana.destroy()
+
+            print(self.client.get_account())
+            print(self.client.get_all_tickers())
+            print(type(self.client.get_all_tickers()))
+            print(self.client.get_symbol_ticker(symbol="BTCUSDT"))
+            print(type(self.client.get_symbol_ticker(symbol="BTCUSDT")))
+            diccionario = self.client.get_symbol_ticker(symbol="BTCUSDT")
+            print(type(diccionario['price']))
+            miprecio=(float(diccionario['price']))
+            print(miprecio)
+            print(self.client.get_symbol_ticker(symbol="BTCUSDT"))
+            print(self.client.get_symbol_ticker(symbol="BTCUSDT"))
+            print(self.client.get_symbol_ticker(symbol="BTCUSDT"))
+            print(self.client.get_symbol_ticker(symbol="BTCUSDT"))
+            print(self.client.get_symbol_ticker(symbol="BTCUSDT"))
+
+
             VentanaEleccion.VentanaEleccion(self.client)
+
 
         except:
             cargando_label=tkinter.Label(ventana,text="Error, vuelve a introducir los datos...", fg="red")

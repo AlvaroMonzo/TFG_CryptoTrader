@@ -3,11 +3,11 @@ from tkinter import ttk
 
 class VentanaCarga(ttk.Frame):
 
-    def __init__(self):
+    def __init__(self,mensaje):
         main_window = tk.Tk()
         super().__init__(main_window)
-        main_window.title("Barra de progreso en Tk")
-        self.label_carga = ttk.Label(self, text="Cargando...")
+        main_window.title(mensaje)
+        self.label_carga = ttk.Label(self, text=mensaje)
         self.label_carga.place(x=30, y=30, width=200)
         self.progressbar = ttk.Progressbar(self, mode="indeterminate")
         self.progressbar.place(x=30, y=60, width=200)
