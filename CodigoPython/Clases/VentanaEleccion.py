@@ -1,6 +1,8 @@
 import tkinter
 
 from CodigoPython.Clases import VentanaLogin
+from CodigoPython.Clases import VentanaEstadisticas
+from CodigoPython.Clases import VentanaCarga
 
 
 class VentanaEleccion:
@@ -16,7 +18,7 @@ class VentanaEleccion:
         ventana_e.geometry("800x280+100+50")
         ventana_e.resizable(width=False, height=False)
         ventana_e.title("CRYPTO TRADER")
-        boton_estadistica = tkinter.Button(ventana_e, text="Estadísticas", width=30, height=15,
+        boton_estadistica = tkinter.Button(ventana_e, text="Tu cuenta", width=30, height=15,
                                            command=lambda: self.opcion(1, ventana_e))
         boton_estadistica.grid(padx=10, pady=10, row=0, column=0)
 
@@ -34,11 +36,11 @@ class VentanaEleccion:
         ventana_e.mainloop()
 
     def opcion(self, opcion_escogida, ventana_e):
-        print(self.client.get_asset_balance(asset='BTC'))
         self.valor = opcion_escogida
         ventana_e.destroy()
+        ventana_carga= VentanaCarga.VentanaCarga()
         if opcion_escogida == 1:
-            print("hola")
+            VentanaEstadisticas.VentanaEstadisticas(self.client,ventana_carga)
         elif opcion_escogida == 4:
             VentanaLogin.VentanaLogin()
 

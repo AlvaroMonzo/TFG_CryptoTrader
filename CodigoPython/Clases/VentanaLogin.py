@@ -40,12 +40,11 @@ class VentanaLogin:
 
         APIkey = textFieldAPIkey.get()
         SecretKey = textFieldSecretKey.get()
-        print("Api key = " + APIkey)
-        print("Secret Key = " + SecretKey)
         try:
             self.client = Client(APIkey, SecretKey)
         #Hago una solicitud de prueba
             self.client.get_asset_balance(asset='BTC')
+
             ventana.destroy()
             VentanaEleccion.VentanaEleccion(self.client)
 
