@@ -3,6 +3,7 @@ import tkinter
 from CodigoPython.Clases import VentanaLogin
 from CodigoPython.Clases import VentanaEstadisticas
 from CodigoPython.Clases import VentanaInstrucciones
+from CodigoPython.Clases import VentanaInicio
 from CodigoPython.Clases import VentanaCarga
 
 
@@ -44,7 +45,10 @@ class VentanaEleccion:
             ventana_e.destroy()
             # VentanaEstadisticas.VentanaEstadisticas(self.client,VentanaCarga.VentanaCarga("Cargando Estadísticas..."))
             VentanaEstadisticas.VentanaEstadisticas(self.client)
-        elif opcion_escogida==3:
+        elif opcion_escogida == 2:
+            ventana_e.destroy()
+            VentanaInicio.VentanaInicio(self.client)
+        elif opcion_escogida == 3:
             ventana_e.destroy()
             VentanaInstrucciones.VentanaInstrucciones(self.client)
 

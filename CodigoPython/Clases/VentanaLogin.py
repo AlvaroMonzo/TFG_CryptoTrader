@@ -46,7 +46,7 @@ class VentanaLogin:
             self.client.get_asset_balance(asset='BTC')
 
             ventana.destroy()
-
+            '''            print("Tipo de cliente es: " + str(type(self.client)))
             print(self.client.get_account())
             print(self.client.get_all_tickers())
             print(type(self.client.get_all_tickers()))
@@ -60,8 +60,7 @@ class VentanaLogin:
             print(self.client.get_symbol_ticker(symbol="BTCUSDT"))
             print(self.client.get_symbol_ticker(symbol="BTCUSDT"))
             print(self.client.get_symbol_ticker(symbol="BTCUSDT"))
-            print(self.client.get_symbol_ticker(symbol="BTCUSDT"))
-
+            print(self.client.get_symbol_ticker(symbol="BTCUSDT"))'''
 
             VentanaEleccion.VentanaEleccion(self.client)
 

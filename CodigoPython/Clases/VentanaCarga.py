@@ -21,3 +21,4 @@ class VentanaCarga(ttk.Frame):
 
     def quitar_carga(self):
         self.destroy()
+

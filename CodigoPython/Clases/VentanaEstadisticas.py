@@ -1,4 +1,7 @@
 import tkinter
+
+from dateparser.parser import tokenizer
+
 from CodigoPython.Clases import VentanaCarga
 
 from binance.client import Client
@@ -21,6 +24,7 @@ class VentanaEstadisticas:
     def iniciar_componentes(self):
         # self.ventana_carga.iniciar_carga()
         print("Inicia la carga")
+
         ventana = tkinter.Tk()
         ventana.geometry("800x280+100+50")
         ventana.resizable(width=False, height=False)
@@ -113,20 +117,21 @@ class VentanaEstadisticas:
 
         label_total_dolares = tkinter.Label(ventana)
 
-        total_dolares = self.client.get_symbol_ticker(symbol="ADAUSDT")[1] * valor_ada_free \
-                        + self.client.get_symbol_ticker(symbol="AVAXUSDT")[1] * valor_avax_free \
-                        + self.client.get_symbol_ticker(symbol="BNBUSDT")[1] * valor_bnb_free \
-                        + self.client.get_symbol_ticker(symbol="BTCUSDT")[1] * valor_btc_free \
-                        + self.client.get_symbol_ticker(symbol="DOGEUSDT")[1] * valor_doge_free \
-                        + self.client.get_symbol_ticker(symbol="ETHUSDT")[1] * valor_eth_free \
-                        + self.client.get_symbol_ticker(symbol="SOLUSDT")[1] * valor_sol_free \
-                        + valor_usdt_free \
-                        + self.client.get_symbol_ticker(symbol="XRPUSDT")[1] * valor_xrp_free
+        total_dolares = float(self.client.get_symbol_ticker(symbol="ADAUSDT")['price']) * float(valor_ada_free) \
+                        + float(self.client.get_symbol_ticker(symbol="AVAXUSDT")['price']) * float(valor_avax_free) \
+                        + float(self.client.get_symbol_ticker(symbol="BNBUSDT")['price']) * float(valor_bnb_free) \
+                        + float(self.client.get_symbol_ticker(symbol="BTCUSDT")['price']) * float(valor_btc_free) \
+                        + float(self.client.get_symbol_ticker(symbol="DOGEUSDT")['price']) * float(valor_doge_free) \
+                        + float(self.client.get_symbol_ticker(symbol="ETHUSDT")['price']) * float(valor_eth_free) \
+                        + float(self.client.get_symbol_ticker(symbol="SOLUSDT")['price']) * float(valor_sol_free) \
+                        + float(self.client.get_symbol_ticker(symbol="TUSDUSDT")['price']) * float(valor_usdt_free) \
+                        + float(self.client.get_symbol_ticker(symbol="XRPUSDT")['price']) * float(valor_xrp_free)
 
+        label_total_dolares.configure(text=str(round (total_dolares,2)) + " $")
         label_total_dolares.grid(column=10, row=0)
 
         boton_atras = tkinter.Button(ventana, text="Atras", command=lambda: self.atras(ventana))
-        boton_atras.grid(columnspan=2, column=10, row=9)
+        boton_atras.grid(columnspan=2, column=10, row=9,sticky="SE")
         # self.ventana_carga.quitar_carga()
         ventana.mainloop()
 
