@@ -17,18 +17,20 @@ class VentanaEstadisticas:
     #    #self.ventana_carga=ventana_carga
     #    self.iniciar_componentes()
 
+    ventana_carga = ""
+
     def __init__(self, client):
         self.client = client
         self.iniciar_componentes()
 
     def iniciar_componentes(self):
         # self.ventana_carga.iniciar_carga()
-        print("Inicia la carga")
 
         ventana = tkinter.Tk()
         ventana.geometry("800x280+100+50")
         ventana.resizable(width=False, height=False)
         ventana.title("CRYPTO TRADER")
+        print("Inicia la carga")
 
         label_estadistica = tkinter.Label(ventana, text="Tu cuenta", font=("Times", 20))
         label_estadistica.grid(column=0, row=0)
@@ -127,14 +129,15 @@ class VentanaEstadisticas:
                         + float(self.client.get_symbol_ticker(symbol="TUSDUSDT")['price']) * float(valor_usdt_free) \
                         + float(self.client.get_symbol_ticker(symbol="XRPUSDT")['price']) * float(valor_xrp_free)
 
-        label_total_dolares.configure(text=str(round (total_dolares,2)) + " $")
+        label_total_dolares.configure(text=str(round(total_dolares, 2)) + " $")
         label_total_dolares.grid(column=10, row=0)
 
         boton_atras = tkinter.Button(ventana, text="Atras", command=lambda: self.atras(ventana))
-        boton_atras.grid(columnspan=2, column=10, row=9,sticky="SE")
+        boton_atras.grid(columnspan=2, column=10, row=9, sticky="SE")
         # self.ventana_carga.quitar_carga()
         ventana.mainloop()
 
     def atras(self, ventana):
         ventana.destroy()
         VentanaEleccion.VentanaEleccion(self.client)
+
