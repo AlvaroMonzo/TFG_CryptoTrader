@@ -11,7 +11,7 @@ if __name__ == "__main__":
     except:
         print("Fallo de cierre")
 
-
-
-hilo = HiloOperacion.MiHilo()
-hilo.start()
+#
+#numero=1
+#hilo = HiloOperacion.MiHilo(args=(numero,numero*numero), daemon=False)
+#hilo.start()

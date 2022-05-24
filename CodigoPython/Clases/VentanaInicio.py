@@ -4,6 +4,7 @@ from CodigoPython.Clases import VentanaCarga
 from binance.client import Client
 from CodigoPython.Clases import VentanaEleccion
 from CodigoPython.Clases import VentanaInstrucciones
+from CodigoPython.Clases import HiloOperacion
 
 
 class VentanaInicio:
@@ -70,6 +71,7 @@ class VentanaInicio:
         VentanaEleccion.VentanaEleccion(self.client)
 
     def inicio(self,ventana, capital, stop, profit, subida, bajada, criptomoneda,error_label):
+
         #Control de entradas
         try:
             capital_value= float(capital.get())
@@ -79,6 +81,18 @@ class VentanaInicio:
             bajada_value= float(bajada.get())
             criptomoneda_value= str(criptomoneda.get())
             print(capital_value,stop_value,profit_value,subida_value,bajada_value,criptomoneda_value)
+
+
+            raise Exception('spam', 'eggs')
+
+            print("Los datos son correctos")
+            #Creamos un hilo que se encargara de realizar las operaciones.
+            hilo=HiloOperacion.MiHilo(args=(capital_value,stop_value,profit_value,subida_value,bajada_value,criptomoneda_value), daemon=False)
+            hilo.start()
+
+        except Exception as e:
+            print("hola")
+
         except:
             error_label.grid(sticky='SE')
             print("Fallo en la conversion")
