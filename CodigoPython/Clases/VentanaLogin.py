@@ -3,9 +3,10 @@ import tkinter
 from binance.client import Client
 from CodigoPython.Clases import VentanaEleccion
 
-class VentanaLogin:
 
+class VentanaLogin:
     client = ""
+
     def __init__(self):
         self.iniciar_componentes()
 
@@ -22,7 +23,6 @@ class VentanaLogin:
         textFieldAPIkey.grid(padx=10, pady=10, row=0, column=1)
         textFieldAPIkey.insert(0, "WFvHi2sNONLatAPXFueeH1LyiFGFSCa8TKENqDMKY1vz236M6ABnefDxw5dkTGZm")
 
-
         labelSecretKey = tkinter.Label(ventana, text="Secret Key:")
         labelSecretKey.grid(padx=10, pady=10, row=1, column=0)
 
@@ -30,43 +30,42 @@ class VentanaLogin:
         textFieldSecretKey.grid(padx=10, pady=10, row=1, column=1)
         textFieldSecretKey.insert(0, "Z45Y85Qn4eN0nJbb2rd6wStVyJcAXd19UbqRgcEEYsCS7NK3QduyHRC3XGSJURBh")
 
-        buttonLogin = tkinter.Button(ventana, text="Login",command=lambda: self.login(textFieldAPIkey, textFieldSecretKey, ventana))
+        buttonLogin = tkinter.Button(ventana, text="Login",
+                                     command=lambda: self.login(textFieldAPIkey, textFieldSecretKey, ventana))
         buttonLogin.grid(rowspan=2, column=2, row=0)
 
-        #ventana.bind('<Return>', self.loginEnter)
+        # ventana.bind('<Return>', self.loginEnter)
         ventana.mainloop()
 
-    def login(self,textFieldAPIkey, textFieldSecretKey, ventana):
+    def login(self, textFieldAPIkey, textFieldSecretKey, ventana):
 
         APIkey = textFieldAPIkey.get()
         SecretKey = textFieldSecretKey.get()
         try:
             self.client = Client(APIkey, SecretKey)
-        #Hago una solicitud de prueba
+            # Hago una solicitud de prueba
             self.client.get_asset_balance(asset='BTC')
-
             ventana.destroy()
-            '''            print("Tipo de cliente es: " + str(type(self.client)))
-            print(self.client.get_account())
-            print(self.client.get_all_tickers())
-            print(type(self.client.get_all_tickers()))
-            print(self.client.get_symbol_ticker(symbol="BTCUSDT"))
-            print(type(self.client.get_symbol_ticker(symbol="BTCUSDT")))
-            diccionario = self.client.get_symbol_ticker(symbol="BTCUSDT")
-            print(type(diccionario['price']))
-            miprecio=(float(diccionario['price']))
-            print(miprecio)
-            print(self.client.get_symbol_ticker(symbol="BTCUSDT"))
-            print(self.client.get_symbol_ticker(symbol="BTCUSDT"))
-            print(self.client.get_symbol_ticker(symbol="BTCUSDT"))
-            print(self.client.get_symbol_ticker(symbol="BTCUSDT"))
-            print(self.client.get_symbol_ticker(symbol="BTCUSDT"))'''
+            # print("Tipo de cliente es: " + str(type(self.client)))
+            # print(self.client.get_account())
+            # print(self.client.get_all_tickers())
+            # print(type(self.client.get_all_tickers()))
+            ##print(self.client.get_symbol_ticker(symbol="BTCUSDT"))
+            # print(type(self.client.get_symbol_ticker(symbol="BTCUSDT")))
+            # diccionario = self.client.get_symbol_ticker(symbol="BTCUSDT")
+            # print(type(diccionario['price']))
+            # miprecio=(float(diccionario['price']))
+            # print(miprecio)
+            # print(self.client.get_symbol_ticker(symbol="BTCUSDT"))
+            # print(self.client.get_symbol_ticker(symbol="BTCUSDT"))
+            # print(self.client.get_symbol_ticker(symbol="BTCUSDT"))
+            # print(self.client.get_symbol_ticker(symbol="BTCUSDT"))
+            # print(self.client.get_symbol_ticker(symbol="BTCUSDT"))
 
             VentanaEleccion.VentanaEleccion(self.client)
 
-
         except:
-            cargando_label=tkinter.Label(ventana,text="Error, vuelve a introducir los datos...", fg="red")
+            cargando_label = tkinter.Label(ventana, text="Error, vuelve a introducir los datos...", fg="red")
             cargando_label.grid(row=2, column=0, columnspan=2)
 
             print("An exception occurred")

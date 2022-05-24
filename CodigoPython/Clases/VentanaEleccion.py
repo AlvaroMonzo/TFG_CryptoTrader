@@ -50,7 +50,7 @@ class VentanaEleccion:
             VentanaInicio.VentanaInicio(self.client)
         elif opcion_escogida == 3:
             ventana_e.destroy()
-            VentanaInstrucciones.VentanaInstrucciones(self.client)
+            VentanaInstrucciones.VentanaInstrucciones(self.client,1)
 
         elif opcion_escogida == 4:
             ventana_e.destroy()

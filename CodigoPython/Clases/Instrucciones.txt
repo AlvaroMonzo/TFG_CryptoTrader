@@ -1,1 +1,14 @@
 Instrucciones del programa:
+
+-------------------------------INICIO-------------------------------
+Capital: Es el dinero inicial con el cual se va a empezar a operar. Se mide en dolares
+
+Stop Lose: Capital menor al introducido por el cual si el precio cae por debajo de este, se para de operar. Tendremos perdidas.
+
+Take Profit. Capital mayor al introducido por el cual si el precio es superior a este, se para de operar. Obtendremos beneficios.
+
+Porcentaje de venta. Porcentaje respecto al precio por el cual se hara una orden de venta.
+
+Porcentaje de compra. Porcentaje respecto al precio por el cual se hara una orden de compra.
+
+Los datos introducidos deben ser enteros o decimales con punto
