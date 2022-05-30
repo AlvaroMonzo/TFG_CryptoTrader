@@ -2,6 +2,8 @@ import tkinter
 
 from binance.client import Client
 from CodigoPython.Clases import VentanaEleccion
+from binance.enums import *
+
 
 
 class VentanaLogin:
@@ -45,6 +47,24 @@ class VentanaLogin:
             self.client = Client(APIkey, SecretKey)
             # Hago una solicitud de prueba
             self.client.get_asset_balance(asset='BTC')
+            # klines = self.client.get_historical_klines("BNBBTC", Client.KLINE_INTERVAL_1MINUTE, "1 day ago UTC")
+            # print(klines)
+            # print(type(klines))
+            print(type(self.client.get_symbol_info('BTCUSDT')['filters'][3]['minNotional']))
+            print(self.client.get_symbol_info('BTCUSDT')['filters'][3]['minNotional'])
+            orders = self.client.get_open_orders(symbol='BTCUSDT')
+            print(orders)
+            print(self.client.get_asset_balance(asset='USDT'))
+            #order = self.client.order_market_buy(
+            #     symbol='ACHUSDT',
+            #     quantity=559)
+
+            #order = self.client.order_market_buy(
+            #    symbol='BTCUSDT',
+            #    quantity=0.00033)
+
+            orders = self.client.get_open_orders(symbol='BTCUSDT')
+            print(orders)
             ventana.destroy()
             # print("Tipo de cliente es: " + str(type(self.client)))
             # print(self.client.get_account())
@@ -62,10 +82,11 @@ class VentanaLogin:
             # print(self.client.get_symbol_ticker(symbol="BTCUSDT"))
             # print(self.client.get_symbol_ticker(symbol="BTCUSDT"))
 
+
             VentanaEleccion.VentanaEleccion(self.client)
 
-        except:
+        except Exception as e:
             cargando_label = tkinter.Label(ventana, text="Error, vuelve a introducir los datos...", fg="red")
             cargando_label.grid(row=2, column=0, columnspan=2)
 
-            print("An exception occurred")
+            print(e)

@@ -15,7 +15,7 @@ class VentanaInicio:
 
     def iniciar_componentes(self):
         # self.ventana_carga.iniciar_carga()
-        lista_criptomonedas = ["BTC"]
+        lista_criptomonedas = ["BTCUSDT"]
         ventana = tkinter.Tk()
         ventana.geometry("800x280+100+50")
         ventana.resizable(width=False, height=False)
@@ -49,8 +49,11 @@ class VentanaInicio:
 
         label_criptomoneda = tkinter.Label(ventana, text="Seleccione la criptomoneda: ")
         label_criptomoneda.grid(column=2, row=0)
-        combobox_criptomoneda = ttk.Combobox(values=lista_criptomonedas, state="readonly")
-        combobox_criptomoneda.grid(column=2, row=1)
+        self.combobox_criptomoneda = ttk.Combobox(values=lista_criptomonedas, state="readonly")
+        self.combobox_criptomoneda.bind("<<ComboboxSelected>>", self.selection_changed)
+        self.combobox_criptomoneda.grid(column=2, row=1)
+        self.label_min_capital = tkinter.Label(ventana, text="Capital mínimo: ")
+        self.label_min_capital.grid(column=2, row=2)
 
         boton_atras = tkinter.Button(ventana, text="Atras", command=lambda: self.atras(ventana))
         boton_atras.grid(sticky='SE')
@@ -61,8 +64,16 @@ class VentanaInicio:
         error_label = tkinter.Label(ventana, text="Datos introducidos incorrectos.", fg="red")
         error_label.grid_forget()
 
-        boton_inicio = tkinter.Button(ventana, text="Inicio", command=lambda: self.inicio(ventana,text_field_capital,text_field_stop,text_field_profit,text_field_proc_subida,text_field_proc_bajada,combobox_criptomoneda,error_label))
+        boton_inicio = tkinter.Button(ventana, text="Inicio", command=lambda: self.inicio(ventana,text_field_capital,text_field_stop,text_field_profit,text_field_proc_subida,text_field_proc_bajada,self.combobox_criptomoneda,error_label))
         boton_inicio.grid(sticky='SE')
+
+        #Datos que pongo yo:
+        #textFieldAPIkey.insert(0, "WFvHi2sNONLatAPXFueeH1LyiFGFSCa8TKENqDMKY1vz236M6ABnefDxw5dkTGZm")
+        text_field_capital.insert(0,11)
+        text_field_proc_bajada.insert(0,0.0001)
+        text_field_proc_subida.insert(0,0.0001)
+        text_field_profit.insert(0,13)
+        text_field_stop.insert(0,9)
 
         ventana.mainloop()
 
@@ -80,18 +91,29 @@ class VentanaInicio:
             subida_value= float(subida.get())
             bajada_value= float(bajada.get())
             criptomoneda_value= str(criptomoneda.get())
-            print(capital_value,stop_value,profit_value,subida_value,bajada_value,criptomoneda_value)
+            precio_min=float(self.client.get_symbol_info(str(self.combobox_criptomoneda.get()))['filters'][3]['minNotional'])
 
+            #print(capital_value,stop_value,profit_value,subida_value,bajada_value,criptomoneda_value)
+            if precio_min>capital_value or precio_min>stop_value or precio_min >profit_value :
+                print("Mal: precio_min>capital_value or precio_min>stop_value or precio_min >profit_value ")
+                raise Exception()
 
-            raise Exception('spam', 'eggs')
+            if profit_value<capital_value:
+                print("Mal: profit_value<capital_value")
+                raise Exception()
 
-            print("Los datos son correctos")
+            if stop_value>capital_value:
+                print("Mal: stop_value>capital_value")
+                raise Exception()
+            if not criptomoneda_value:
+                print("Mal: criptomoneda_value.isspace()")
+                raise Exception()
+
+            print("Se crea el hilo")
             #Creamos un hilo que se encargara de realizar las operaciones.
-            hilo=HiloOperacion.MiHilo(args=(capital_value,stop_value,profit_value,subida_value,bajada_value,criptomoneda_value), daemon=False)
+            hilo=HiloOperacion.MiHilo(args=(capital_value,stop_value,profit_value,subida_value,bajada_value,criptomoneda_value,self.client), daemon=False)
             hilo.start()
 
-        except Exception as e:
-            print("hola")
 
         except:
             error_label.grid(sticky='SE')
@@ -101,3 +123,8 @@ class VentanaInicio:
     def instrucciones(self,ventana):
         ventana.destroy()
         VentanaInstrucciones.VentanaInstrucciones(self.client,2)
+
+    def selection_changed(self, event):
+        selection = self.combobox_criptomoneda.get()
+        precio_min=(self.client.get_symbol_info(str(selection))['filters'][3]['minNotional'])
+        self.label_min_capital.configure(text="Capital mínimo: " + str(round(float(precio_min),2)) + " $")
