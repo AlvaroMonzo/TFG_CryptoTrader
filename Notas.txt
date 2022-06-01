@@ -11,6 +11,8 @@ Todo los repositorios de binance: https://github.com/orgs/binance/repositories
 Tkinter: https: //docs.python.org/es/3/library/tkinter.html
 Centrar tkinter: https://recursospython.com/guias-y-manuales/boton-button-en-tkinter/
 
+grafico de velas: https://coderzcolumn.com/tutorials/data-science/candlestick-chart-in-python-mplfinance-plotly-bokeh
+https://stackoverflow.com/questions/51358147/fetch-candlestick-kline-data-from-binance-api-using-python-preferably-requests
 
 WFvHi2sNONLatAPXFueeH1LyiFGFSCa8TKENqDMKY1vz236M6ABnefDxw5dkTGZm
 Z45Y85Qn4eN0nJbb2rd6wStVyJcAXd19UbqRgcEEYsCS7NK3QduyHRC3XGSJURBh

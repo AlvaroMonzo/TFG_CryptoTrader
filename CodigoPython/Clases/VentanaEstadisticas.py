@@ -25,11 +25,14 @@ class VentanaEstadisticas:
 
     def iniciar_componentes(self):
         # self.ventana_carga.iniciar_carga()
+        #hilo = VentanaCarga.VentanaCarga(args=(),daemon=False)
+        #hilo.start()
 
         ventana = tkinter.Tk()
         ventana.geometry("800x280+100+50")
         ventana.resizable(width=False, height=False)
         ventana.title("CRYPTO TRADER")
+
         print("Inicia la carga")
 
         label_estadistica = tkinter.Label(ventana, text="Tu cuenta", font=("Times", 20))
@@ -135,6 +138,9 @@ class VentanaEstadisticas:
         boton_atras = tkinter.Button(ventana, text="Atras", command=lambda: self.atras(ventana))
         boton_atras.grid(columnspan=2, column=10, row=9, sticky="SE")
         # self.ventana_carga.quitar_carga()
+        #print("Inicia la carga2")
+        #hilo.quitar_carga()
+        print("Quita carga")
         ventana.mainloop()
 
     def atras(self, ventana):

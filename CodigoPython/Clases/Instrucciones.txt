@@ -1,6 +1,8 @@
 Instrucciones del programa:
 
 -------------------------------INICIO-------------------------------
+Para empezar, debes de tener el dinero en USDT.
+
 Capital: Es el dinero inicial con el cual se va a empezar a operar. Se mide en dolares
 
 Stop Lose: Capital menor al introducido por el cual si el precio cae por debajo de este, se para de operar. Tendremos perdidas.

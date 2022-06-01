@@ -43,7 +43,6 @@ class VentanaEleccion:
 
         if opcion_escogida == 1:
             ventana_e.destroy()
-            # VentanaEstadisticas.VentanaEstadisticas(self.client,VentanaCarga.VentanaCarga("Cargando Estadísticas..."))
             VentanaEstadisticas.VentanaEstadisticas(self.client)
         elif opcion_escogida == 2:
             ventana_e.destroy()

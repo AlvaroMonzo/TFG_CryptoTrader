@@ -2,8 +2,9 @@ import tkinter
 
 from binance.client import Client
 from CodigoPython.Clases import VentanaEleccion
+import pandas as pd
 from binance.enums import *
-
+import mplfinance as fplt
 
 
 class VentanaLogin:
@@ -47,25 +48,40 @@ class VentanaLogin:
             self.client = Client(APIkey, SecretKey)
             # Hago una solicitud de prueba
             self.client.get_asset_balance(asset='BTC')
+            status = self.client.get_system_status()
+            if int(status['status']) == 1:
+                raise ValueError("Sistema en mantenimiento, espere un tiempo...")
+
+            info = self.client.get_account_snapshot(type='SPOT')
+            candles = self.client.get_klines(symbol='BNBBTC', interval=Client.KLINE_INTERVAL_30MINUTE)
+
+            apple_df = pd.Series(candles)
+            dt_range = pd.date_range(start="2020-03-01", end="2020-03-31")
+            apple_df = apple_df[apple_df.index.isin(dt_range)]
+            apple_df.head()
+
+            pd.Series(candles)
+            fplt.plot( apple_df, type='candle', title='Prueba', ylabel='Pruebay')
+            ventana.destroy()
             # klines = self.client.get_historical_klines("BNBBTC", Client.KLINE_INTERVAL_1MINUTE, "1 day ago UTC")
             # print(klines)
             # print(type(klines))
-            print(type(self.client.get_symbol_info('BTCUSDT')['filters'][3]['minNotional']))
-            print(self.client.get_symbol_info('BTCUSDT')['filters'][3]['minNotional'])
-            orders = self.client.get_open_orders(symbol='BTCUSDT')
-            print(orders)
-            print(self.client.get_asset_balance(asset='USDT'))
-            #order = self.client.order_market_buy(
+            # print(type(self.client.get_symbol_info('BTCUSDT')['filters'][3]['minNotional']))
+            # print(self.client.get_symbol_info('BTCUSDT')['filters'][3]['minNotional'])
+            # orders = self.client.get_open_orders(symbol='BTCUSDT')
+            # print(orders)
+            # print(self.client.get_asset_balance(asset='USDT'))
+            # order = self.client.order_market_buy(
             #     symbol='ACHUSDT',
             #     quantity=559)
 
-            #order = self.client.order_market_buy(
+            # order = self.client.order_market_buy(
             #    symbol='BTCUSDT',
             #    quantity=0.00033)
 
-            orders = self.client.get_open_orders(symbol='BTCUSDT')
-            print(orders)
-            ventana.destroy()
+            # orders = self.client.get_open_orders(symbol='BTCUSDT')
+            # print(orders)
+
             # print("Tipo de cliente es: " + str(type(self.client)))
             # print(self.client.get_account())
             # print(self.client.get_all_tickers())
@@ -82,11 +98,11 @@ class VentanaLogin:
             # print(self.client.get_symbol_ticker(symbol="BTCUSDT"))
             # print(self.client.get_symbol_ticker(symbol="BTCUSDT"))
 
-
             VentanaEleccion.VentanaEleccion(self.client)
-
+        except ValueError as e:
+            cargando_label = tkinter.Label(ventana, text=e, fg="red")
+            cargando_label.grid(row=2, column=0, columnspan=2)
         except Exception as e:
             cargando_label = tkinter.Label(ventana, text="Error, vuelve a introducir los datos...", fg="red")
             cargando_label.grid(row=2, column=0, columnspan=2)
-
             print(e)
