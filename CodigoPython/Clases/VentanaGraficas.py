@@ -92,7 +92,7 @@ class VentanaGraficas:
         mpf.plot(hist_df.set_index('Close Time').tail(120),
                 type='candle', style='charles',
                 volume=True,
-                title='BTCUSDT Last 120 Days',
+                title=str(combobox_criptomoneda.get()) + " intervalo de "+(combobox_intervalo.get()),
                 mav=(10,20,30))
 
 
