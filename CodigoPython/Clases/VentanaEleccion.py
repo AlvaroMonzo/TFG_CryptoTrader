@@ -1,6 +1,6 @@
 import tkinter
 
-from CodigoPython.Clases import VentanaLogin
+from CodigoPython.Clases import VentanaLogin, VentanaGraficas
 from CodigoPython.Clases import VentanaEstadisticas
 from CodigoPython.Clases import VentanaInstrucciones
 from CodigoPython.Clases import VentanaInicio
@@ -20,21 +20,25 @@ class VentanaEleccion:
         ventana_e.geometry("800x280+100+50")
         ventana_e.resizable(width=False, height=False)
         ventana_e.title("CRYPTO TRADER")
-        boton_estadistica = tkinter.Button(ventana_e, text="Tu cuenta", width=30, height=15,
+        boton_cuenta = tkinter.Button(ventana_e, text="Tu cuenta",  width=15, height=7,
                                            command=lambda: self.opcion(1, ventana_e))
-        boton_estadistica.grid(padx=10, pady=10, row=0, column=0)
+        boton_cuenta.grid( row=0, column=0)
 
-        boton_inicio = tkinter.Button(ventana_e, text="Inicio", width=30, height=15,
+        boton_inicio = tkinter.Button(ventana_e, text="Inicio",  width=15, height=7,
                                       command=lambda: self.opcion(2, ventana_e))
-        boton_inicio.grid(padx=10, pady=10, row=0, column=1)
+        boton_inicio.grid( row=0, column=1)
 
-        boton_instrucciones = tkinter.Button(ventana_e, text="Instrucciones", width=30, height=15,
+        boton_instrucciones = tkinter.Button(ventana_e, text="Instrucciones",  width=15, height=7,
                                              command=lambda: self.opcion(3, ventana_e))
-        boton_instrucciones.grid(padx=10, pady=10, row=0, column=2)
+        boton_instrucciones.grid(row=0, column=2)
 
-        boton_atras = tkinter.Button(ventana_e, text="Atrás", width=5, height=2,
-                                     command=lambda: self.opcion(4, ventana_e))
-        boton_atras.grid(padx=10, pady=10, row=0, column=3)
+        boton_graficas = tkinter.Button(ventana_e, text="Gráfica", width=15, height=7,
+                                             command=lambda: self.opcion(4, ventana_e))
+        boton_graficas.grid( row=0, column=3)
+
+        boton_atras = tkinter.Button(ventana_e, text="Atrás", width=15, height=7,
+                                     command=lambda: self.opcion(5, ventana_e))
+        boton_atras.grid( row=0, column=4)
 
         ventana_e.mainloop()
 
@@ -52,5 +56,9 @@ class VentanaEleccion:
             VentanaInstrucciones.VentanaInstrucciones(self.client,1)
 
         elif opcion_escogida == 4:
+            ventana_e.destroy()
+            VentanaGraficas.VentanaGraficas(self.client,1)
+
+        elif opcion_escogida == 5:
             ventana_e.destroy()
             VentanaLogin.VentanaLogin()

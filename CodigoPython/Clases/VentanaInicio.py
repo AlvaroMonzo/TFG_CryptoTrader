@@ -2,7 +2,7 @@ import tkinter
 from tkinter import ttk
 
 from yarl._url import cached_property
-from CodigoPython.Clases import VentanaCarga
+from CodigoPython.Clases import VentanaCarga, VentanaGraficas
 from binance.client import Client
 
 from CodigoPython.Clases import VentanaEleccion
@@ -11,6 +11,7 @@ from CodigoPython.Clases import HiloOperacion
 
 hilos = []
 fila_label = 0
+
 
 class VentanaInicio:
 
@@ -27,7 +28,7 @@ class VentanaInicio:
     def iniciar_componentes(self):
         # self.ventana_carga.iniciar_carga()
         global fila_label, hilos
-        lista_criptomonedas = ["BTCUSDT", "AAVEUSDT","ADAUSDT"]
+        lista_criptomonedas = ["BTCUSDT", "AAVEUSDT", "ADAUSDT", "BNBUSDT"]
         ventana = tkinter.Tk()
         ventana.geometry("800x280+100+50")
         ventana.resizable(width=False, height=False)
@@ -59,7 +60,6 @@ class VentanaInicio:
         text_field_proc_bajada = tkinter.Entry(ventana)
         text_field_proc_bajada.grid(column=1, row=4)
 
-
         label_criptomoneda = tkinter.Label(ventana, text="Seleccione la criptomoneda: ")
         label_criptomoneda.grid(column=2, row=0)
         self.combobox_criptomoneda = ttk.Combobox(values=lista_criptomonedas, state="readonly")
@@ -70,6 +70,9 @@ class VentanaInicio:
 
         boton_atras = tkinter.Button(ventana, text="Atras", command=lambda: self.atras(ventana))
         boton_atras.grid(sticky='SE')
+
+        boton_grafica = tkinter.Button(ventana, text="Ver gráfica", command=lambda: self.ver_graficas(ventana))
+        boton_grafica.grid(sticky='SE')
 
         boton_instrucciones = tkinter.Button(ventana, text="Instrucciones", command=lambda: self.instrucciones(ventana))
         boton_instrucciones.grid(sticky='SE')
@@ -93,7 +96,7 @@ class VentanaInicio:
         text_field_stop.insert(0, 11)
 
         for i in range(len(hilos)):
-            fila_label=0
+            fila_label = 0
             label_hilo = tkinter.Label(ventana, text="Hilo ejecutando: " + hilos[i].getName())
             label_hilo.grid(column=3, row=fila_label)
 
@@ -102,7 +105,7 @@ class VentanaInicio:
                                                                          hilos[i].get_capital(),
                                                                          label_USDT))
             boton_parar.grid(column=4, row=fila_label)
-            self.capital_USDT_disponible-=hilos[i].get_capital()
+            self.capital_USDT_disponible -= hilos[i].get_capital()
             fila_label += 1
 
         label_USDT = tkinter.Label(ventana, text="USTD actuales: " + str(
@@ -137,9 +140,9 @@ class VentanaInicio:
             if not criptomoneda_value:
                 raise Exception("Seleccione la criptomoneda")
             for i in range(len(hilos)):
-                if hilos[i].getName()==criptomoneda_value:
+                if hilos[i].getName() == criptomoneda_value:
                     raise Exception("Ya tenemos ese hilo ejecutandose")
-            if capital_value>self.capital_USDT_disponible:
+            if capital_value > self.capital_USDT_disponible:
                 raise Exception("Capital insuficiente")
 
             print("Se crea el hilo")
@@ -153,7 +156,7 @@ class VentanaInicio:
             label_hilo = tkinter.Label(ventana, text="Hilo ejecutando: " + hilo.getName())
             label_hilo.grid(column=3, row=fila_label)
 
-            self.capital_USDT_disponible-=capital_value
+            self.capital_USDT_disponible -= capital_value
             self.repitar_USDT(label_USDT)
 
             boton_instrucciones = tkinter.Button(ventana, text="Parar",
@@ -184,12 +187,16 @@ class VentanaInicio:
         fila_label -= 1
         hilos.remove(hilo)
 
-        self.capital_USDT_disponible=self.capital_USDT_disponible+capital_value
+        self.capital_USDT_disponible = self.capital_USDT_disponible + capital_value
         self.repitar_USDT(label_USDT)
 
     def instrucciones(self, ventana):
         ventana.destroy()
         VentanaInstrucciones.VentanaInstrucciones(self.client, 2)
+
+    def ver_graficas(self, ventana):
+        ventana.destroy()
+        VentanaGraficas.VentanaGraficas(self.client, 2)
 
     def repitar_USDT(self, label_USDT):
         label_USDT.configure(

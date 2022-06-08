@@ -2,10 +2,13 @@ import tkinter
 
 from binance.client import Client
 from CodigoPython.Clases import VentanaEleccion
-import pandas as pd
-from binance.enums import *
-import mplfinance as fplt
 
+
+from matplotlib.pyplot import title
+import requests
+import json
+import pandas as pd
+import mplfinance as mpf
 
 class VentanaLogin:
     client = ""
@@ -51,17 +54,50 @@ class VentanaLogin:
             status = self.client.get_system_status()
             if int(status['status']) == 1:
                 raise ValueError("Sistema en mantenimiento, espere un tiempo...")
+            '''candles = self.client.get_klines(symbol='BTCUSDT', interval='1d')
 
-            info = self.client.get_account_snapshot(type='SPOT')
+            historical = self.client.get_historical_klines('BTCUSDT', Client.KLINE_INTERVAL_1DAY, '1 Jan 2011')
+
+            hist_df = pd.DataFrame(candles)
+            hist_df.columns = ['Open Time', 'Open', 'High', 'Low', 'Close', 'Volume', 'Close Time', 'Quote Asset Volume',
+                    'Number of Trades', 'TB Base Volume', 'TB Quote Volume', 'Ignore']
+
+            hist_df['Open Time'] = pd.to_datetime(hist_df['Open Time']/1000, unit='s')
+            hist_df['Close Time'] = pd.to_datetime(hist_df['Close Time']/1000, unit='s')
+
+            numeric_columns = ['Open', 'High', 'Low', 'Close', 'Volume', 'Quote Asset Volume', 'TB Base Volume', 'TB Quote Volume']
+
+            hist_df[numeric_columns] = hist_df[numeric_columns].apply(pd.to_numeric, axis=1)
+
+            hist_df.set_index('Close Time').tail(100)
+
+            mpf.plot(hist_df.set_index('Close Time').tail(120),
+                    type='candle', style='charles',
+                    volume=True,
+                    title='BTCUSDT Last 120 Days',
+                    mav=(10,20,30))'''
+
+            '''df=pd.DataFrame(candles)
+            print(df)
+            print(df.columns)'''
+            '''df = pd.DataFrame.from_records(candles,
+                               columns=['Open time','Open', 'High', 'Low','Close','Volume','Close time','Quote asset volume','Number of trades','Taker buy base asset volume','Taker buy quote asset volume','Can be ignored'],
+                               exclude=['Can be ignored'])
+
+            df.index = pd.DatetimeIndex(df['Open time'])
+            print(df)
+            print(df.columns)
+            '''
+            #mpl.plot(df)
+            '''info = self.client.get_account_snapshot(type='SPOT')
             candles = self.client.get_klines(symbol='BNBBTC', interval=Client.KLINE_INTERVAL_30MINUTE)
-
             apple_df = pd.Series(candles)
             dt_range = pd.date_range(start="2020-03-01", end="2020-03-31")
             apple_df = apple_df[apple_df.index.isin(dt_range)]
             apple_df.head()
-
             pd.Series(candles)
             fplt.plot( apple_df, type='candle', title='Prueba', ylabel='Pruebay')
+            '''
             ventana.destroy()
             # klines = self.client.get_historical_klines("BNBBTC", Client.KLINE_INTERVAL_1MINUTE, "1 day ago UTC")
             # print(klines)
