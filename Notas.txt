@@ -5,6 +5,10 @@ Poner 2 opciones, que se compre con todo el dinero o se compre con el capital in
 Informacion código: https://acodigo.blogspot.com/2021/01/python-binance-api.html
 github: https://github.com/sammchardy/python-binance
 documentación: https://python-binance.readthedocs.io/en/latest/
+markecap api: https://coinmarketcap.com/api/documentation/v1/
+
+lineas grafica:https://github.com/matplotlib/mplfinance/blob/master/examples/using_lines.ipynb
+
 Conector: https://github.com/binance/binance-connector-python
 Todo los repositorios de binance: https://github.com/orgs/binance/repositories
 

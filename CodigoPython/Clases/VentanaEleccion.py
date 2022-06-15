@@ -1,6 +1,6 @@
 import tkinter
 
-from CodigoPython.Clases import VentanaLogin, VentanaGraficas
+from CodigoPython.Clases import VentanaLogin, VentanaGraficas, VentanaMonedas
 from CodigoPython.Clases import VentanaEstadisticas
 from CodigoPython.Clases import VentanaInstrucciones
 from CodigoPython.Clases import VentanaInicio
@@ -36,9 +36,13 @@ class VentanaEleccion:
                                              command=lambda: self.opcion(4, ventana_e))
         boton_graficas.grid( row=0, column=3)
 
+        boton_monedas = tkinter.Button(ventana_e, text="Monedas", width=15, height=7,
+                                             command=lambda: self.opcion(5, ventana_e))
+        boton_monedas.grid( row=0, column=4)
+
         boton_atras = tkinter.Button(ventana_e, text="Atrás", width=15, height=7,
-                                     command=lambda: self.opcion(5, ventana_e))
-        boton_atras.grid( row=0, column=4)
+                                     command=lambda: self.opcion(6, ventana_e))
+        boton_atras.grid( row=0, column=5)
 
         ventana_e.mainloop()
 
@@ -60,5 +64,9 @@ class VentanaEleccion:
             VentanaGraficas.VentanaGraficas(self.client,1)
 
         elif opcion_escogida == 5:
+            ventana_e.destroy()
+            VentanaMonedas.VentanaMonedas(self.client,1)
+
+        elif opcion_escogida == 6:
             ventana_e.destroy()
             VentanaLogin.VentanaLogin()

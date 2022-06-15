@@ -58,8 +58,11 @@ class VentanaGraficas:
         combobox_criptomoneda = ttk.Combobox(values=lista_criptomonedas, state="readonly")
         combobox_criptomoneda.grid(column=1, row=1)
 
-        boton_grafica = tkinter.Button(ventana, text="Ver gráfica", command=lambda: self.ver_grafica(combobox_intervalo,combobox_criptomoneda))
-        boton_grafica.grid(sticky='SE')
+        label_numero_velas = tkinter.Label(ventana, text="Introduce número de velas")
+        label_numero_velas.grid(column=2, row=0)
+        text_field_numero_velas = tkinter.Entry(ventana)
+        text_field_numero_velas.grid(column=2, row=1)
+        text_field_numero_velas.insert(0, "100")
 
         boton_atras = tkinter.Button(ventana, text="Atras", command=lambda: self.atras(ventana,self.ventana_proveniente))
         boton_atras.grid(sticky='SE')
@@ -70,31 +73,51 @@ class VentanaGraficas:
         error_label = tkinter.Label(ventana, text="Datos introducidos incorrectos.", fg="red")
         error_label.grid_forget()
 
+        boton_grafica = tkinter.Button(ventana, text="Ver gráfica", command=lambda: self.ver_grafica(combobox_intervalo,combobox_criptomoneda,error_label,text_field_numero_velas))
+        boton_grafica.grid(sticky='SE')
+
         ventana.mainloop()
 
-    def ver_grafica(self,combobox_intervalo,combobox_criptomoneda):
+    def ver_grafica(self,combobox_intervalo,combobox_criptomoneda,error_label,text_field_numero_velas):
+        try:
+            numero_velas=0
+            if text_field_numero_velas.get() == "":
 
-        candles = self.client.get_klines(symbol=str(combobox_criptomoneda.get()), interval=str(combobox_intervalo.get()))
+                numero_velas=100
 
-        hist_df = pd.DataFrame(candles)
-        hist_df.columns = ['Open Time', 'Open', 'High', 'Low', 'Close', 'Volume', 'Close Time', 'Quote Asset Volume',
-                'Number of Trades', 'TB Base Volume', 'TB Quote Volume', 'Ignore']
+            else:
+                numero_velas= int(text_field_numero_velas.get())
 
-        hist_df['Open Time'] = pd.to_datetime(hist_df['Open Time']/1000, unit='s')
-        hist_df['Close Time'] = pd.to_datetime(hist_df['Close Time']/1000, unit='s')
+            candles = self.client.get_klines(symbol=str(combobox_criptomoneda.get()), interval=str(combobox_intervalo.get()))
+            hist_df = pd.DataFrame(candles)
+            hist_df.columns = ['Open Time', 'Open', 'High', 'Low', 'Close', 'Volume', 'Close Time', 'Quote Asset Volume',
+                    'Number of Trades', 'TB Base Volume', 'TB Quote Volume', 'Ignore']
 
-        numeric_columns = ['Open', 'High', 'Low', 'Close', 'Volume', 'Quote Asset Volume', 'TB Base Volume', 'TB Quote Volume']
+            hist_df['Open Time'] = pd.to_datetime(hist_df['Open Time']/1000, unit='s')
+            hist_df['Close Time'] = pd.to_datetime(hist_df['Close Time']/1000, unit='s')
 
-        hist_df[numeric_columns] = hist_df[numeric_columns].apply(pd.to_numeric, axis=1)
+            numeric_columns = ['Open', 'High', 'Low', 'Close', 'Volume', 'Quote Asset Volume', 'TB Base Volume', 'TB Quote Volume']
 
-        hist_df.set_index('Close Time').tail(100)
+            hist_df[numeric_columns] = hist_df[numeric_columns].apply(pd.to_numeric, axis=1)
+    #tail(100)
+            hist_df.set_index('Close Time').tail(numero_velas)
+            two_points = [('2022-06-04', 30000),('2022-06-10', 25000)]
 
-        mpf.plot(hist_df.set_index('Close Time').tail(120),
-                type='candle', style='charles',
-                volume=True,
-                title=str(combobox_criptomoneda.get()) + " intervalo de "+(combobox_intervalo.get()),
-                mav=(10,20,30))
+    #tail(120)
 
+            mpf.plot(hist_df.set_index('Close Time').tail(numero_velas),
+                  # hlines=dict(hlines=[30000,31021],colors=['g','r'],linestyle='-.'),
+                    type='candle', style='charles',
+                    volume=True,
+                    title=str(combobox_criptomoneda.get()) + " intervalo de "+(combobox_intervalo.get()),
+                    mav=(10,20,30))
+        except ValueError:
+            error_label.grid(sticky='SE')
+            error_label.configure(text="El número de velas debe de ser un entero")
+
+        except Exception as e:
+            error_label.grid(sticky='SE')
+            error_label.configure(text="Introduce correctamente los valores")
 
     def atras(self, ventana,ventana_proveniente):
         ventana.destroy()

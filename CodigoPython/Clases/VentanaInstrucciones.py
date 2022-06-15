@@ -1,7 +1,7 @@
 import tkinter
 from CodigoPython.Clases import VentanaCarga
 from binance.client import Client
-from CodigoPython.Clases import VentanaEleccion, VentanaGraficas
+from CodigoPython.Clases import VentanaEleccion, VentanaGraficas,VentanaMonedas
 from CodigoPython.Clases import VentanaInicio
 
 
@@ -41,3 +41,5 @@ class VentanaInstrucciones:
             VentanaInicio.VentanaInicio(self.client)
         elif ventana_proveniente == 3:
             VentanaGraficas.VentanaGraficas(self.client,1)
+        elif ventana_proveniente == 4:
+            VentanaMonedas.VentanaMonedas(self.client,1)
