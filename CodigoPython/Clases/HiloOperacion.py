@@ -81,8 +81,7 @@ class MiHilo(threading.Thread):
                 print("Capital cripto: " + str(self.capital_cripto))
                 print("Capital USDT: " + str(self.capital_USDT))
 
-                if (
-                        self.precio_actual > self.precio_superior and self.vender):  # Ha subido el precio, por lo tanto vendemos y reseteamos los valores
+                if (self.precio_actual > self.precio_superior and self.vender):  # Ha subido el precio, por lo tanto vendemos y reseteamos los valores
                     # Meter un log de venta
                     print("Vendemos a: " + str(self.precio_actual))
                     n = str(self.capital_cripto)
@@ -132,10 +131,22 @@ class MiHilo(threading.Thread):
                         print("Dinero actual:" + str(self.precio_actual * self.capital_cripto))
                         if (self.precio_actual * self.capital_cripto) > self.profit:
                             self.terminado = True
+                            n = str(self.capital_cripto)
+                            n = n[:n.index('.') + self.minimo]
+                            cantidad_venta = (float(n))
+                            order = self.client.order_market_sell(
+                            symbol=self.criptomoneda,
+                            quantity=cantidad_venta)
                             logging.critical('Hemos llegado al profit de ' + str(self.profit) + ' con ' + str(
                                 self.precio_actual * self.capital_cripto) + " $")
                         elif (self.precio_actual * self.capital_cripto) < self.stop:
                             self.terminado = True
+                            n = str(self.capital_cripto)
+                            n = n[:n.index('.') + self.minimo]
+                            cantidad_venta = (float(n))
+                            order = self.client.order_market_sell(
+                            symbol=self.criptomoneda,
+                            quantity=cantidad_venta)
                             logging.critical('Hemos llegado al stop de ' + str(self.stop) + ' con ' + str(
                                 self.precio_actual * self.capital_cripto) + " $")
                         print("Nos toca vender")
@@ -146,10 +157,22 @@ class MiHilo(threading.Thread):
                             self.terminado = True
                             logging.critical('Hemos llegado al profit de ' + str(self.profit) + ' con ' + str(
                                 self.capital_USDT) + " $")
+                            n = str(self.capital_cripto)
+                            n = n[:n.index('.') + self.minimo]
+                            cantidad_venta = (float(n))
+                            order = self.client.order_market_sell(
+                            symbol=self.criptomoneda,
+                            quantity=cantidad_venta)
                         elif self.capital_USDT < self.stop:
                             self.terminado = True
                             logging.critical(
                                 'Hemos llegado al stop de ' + str(self.stop) + ' con ' + str(self.capital_USDT) + " $")
+                            n = str(self.capital_cripto)
+                            n = n[:n.index('.') + self.minimo]
+                            cantidad_venta = (float(n))
+                            order = self.client.order_market_sell(
+                            symbol=self.criptomoneda,
+                            quantity=cantidad_venta)
                         print("Nos toca comprar")
 
                 time.sleep(0.2)
