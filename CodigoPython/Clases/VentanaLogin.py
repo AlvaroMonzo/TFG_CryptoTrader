@@ -1,3 +1,4 @@
+import csv
 import tkinter
 
 from binance.client import Client
@@ -47,6 +48,7 @@ class VentanaLogin:
 
         APIkey = textFieldAPIkey.get()
         SecretKey = textFieldSecretKey.get()
+
         try:
             self.client = Client(APIkey, SecretKey)
             # Hago una solicitud de prueba
