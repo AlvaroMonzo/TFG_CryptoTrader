@@ -4,6 +4,8 @@ import os, platform, logging
 import csv
 from binance.enums import *
 
+from CodigoPython.Clases import variablesTransitorias
+
 
 class MiHilo(threading.Thread):
 
@@ -11,6 +13,7 @@ class MiHilo(threading.Thread):
                  args=(), kwargs=None, *, daemon=None):
         super().__init__(group=group, target=target, name=name,
                          daemon=daemon)
+        #Creamos el hilo y le asignamos todos los valores correspondientes
         self.capital = args[0]
         self.stop = args[1]
         self.profit = args[2]
@@ -18,6 +21,8 @@ class MiHilo(threading.Thread):
         self.bajada = args[4]
         self.criptomoneda = args[5]
         self.client = args[6]
+
+        #Valores que utilizaremos dentro de la función run
         self.precio_anterior = ""
         self.precio_actual = ""
         self.precio_superior = ""
@@ -26,32 +31,24 @@ class MiHilo(threading.Thread):
         self.capital_cripto = 0.0
         self.minimo = 0
         self.terminado = False
+        self.vender = False
+        self.comprar = True
+        threading.current_thread().setName(self.criptomoneda)
+        print("Se inicia el hilo: " + threading.current_thread().getName())
+
+        #Valores que utilizaremos para exportar el csv
         from datetime import datetime
         self.dia = datetime.now().day
         self.mes = datetime.now().month
         self.anno = datetime.now().year
         self.hora = datetime.now().hour
         self.minuto = datetime.now().minute
-
         self.datos_csv = []
 
-        # Haremos que siempre compre primero, por lo tanto deberiamos tener todo en usdt
-
-        self.vender = False
-        self.comprar = True
-        threading.current_thread().setName(self.criptomoneda)
-        print("Se inicia el hilo: " + threading.current_thread().getName())
-
-        logging.basicConfig(filename=threading.current_thread().getName() + '.log', level=logging.INFO, filemode='w',
-                            format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
-        logging.info("El hilo " + threading.current_thread().getName() + " empezó a ejecutarse")
 
     def run(self):
-        # t=0
-        self.terminado = False
-        # Simulación:
+        #Asignamos el valor
         self.capital_USDT = self.capital
-        # Par de btc con usdt
         self.precio_anterior = float(self.client.get_symbol_ticker(symbol=self.criptomoneda)['price'])
         # Precio por el cual si es mayor venderemos
         self.precio_superior = self.precio_anterior + self.precio_anterior * self.subida
@@ -59,7 +56,7 @@ class MiHilo(threading.Thread):
         self.precio_inferior = self.precio_anterior - self.precio_anterior * self.bajada
         # LOT_SIZE Cantidad minima de compra
         lot_size = (self.client.get_symbol_info(str(self.criptomoneda))['filters'][2]['minQty'])
-        # print(lot_size)
+
         punto_encontrado = False
         fin = False
         decimales = 0
@@ -72,13 +69,16 @@ class MiHilo(threading.Thread):
                     decimales += 1
                     if int(i) == 1:
                         fin = True
-        # print("El minimo debe de ser: " + str(self.minimo))
         self.minimo = decimales + 1
 
         while not self.terminado:
             try:
+                #Metemos en el diccionario el diccionario el precio superior y el inferior
+                variablesTransitorias.añadirDicc(self.criptomoneda,[self.precio_superior,self.precio_inferior])
 
                 time.sleep(0.2)
+
+                #Precio actual es el precio de la criptomoneda en dolares
                 self.precio_actual = float(self.client.get_symbol_ticker(symbol=self.criptomoneda)['price'])
 
                 # Simulacion
@@ -90,8 +90,8 @@ class MiHilo(threading.Thread):
                 print("Capital cripto: " + str(self.capital_cripto))
                 print("Capital USDT: " + str(self.capital_USDT))
 
-                if (
-                        self.precio_actual > self.precio_superior and self.vender):  # Ha subido el precio, por lo tanto vendemos y reseteamos los valores
+                if (self.precio_actual > self.precio_superior and self.vender):
+                    # Ha subido el precio, por lo tanto vendemos y reseteamos los valores
                     # Meter un log de venta
                     print("Vendemos a: " + str(self.precio_actual))
                     n = str(self.capital_cripto)
@@ -206,6 +206,7 @@ class MiHilo(threading.Thread):
 
     def parar_hilo(self):
         self.terminado = True
+        variablesTransitorias.diccionario.pop(self.criptomoneda)
         logging.critical("HILO PARADO MANUALMENTE")
         # Creamos el csv con la hora de inicio y la criptomoneda
 

@@ -12,34 +12,26 @@ from CodigoPython.Clases import VentanaEleccion
 
 
 class VentanaEstadisticas:
-    # def __init__(self, client,ventana_carga):
-    #    self.client = client
-    #    #self.ventana_carga=ventana_carga
-    #    self.iniciar_componentes()
-
     ventana_carga = ""
 
     def __init__(self, client):
+        #Instanciamos el cliente
         self.client = client
         self.iniciar_componentes()
 
     def iniciar_componentes(self):
-        # self.ventana_carga.iniciar_carga()
-        #hilo = VentanaCarga.VentanaCarga(args=(),daemon=False)
-        #hilo.start()
 
         ventana = tkinter.Tk()
         ventana.geometry("800x280+100+50")
         ventana.resizable(width=False, height=False)
         ventana.title("CRYPTO TRADER")
 
-        print("Inicia la carga")
-
         label_estadistica = tkinter.Label(ventana, text="Tu cuenta", font=("Times", 20))
         label_estadistica.grid(column=0, row=0)
 
         cadena_predefinida = "{}: Libre: {} Bloqueado: {} "
 
+        #Creamos el label y mediante una consulta, podremos saber los valores de las criptomonedas
         label_btc = tkinter.Label(ventana)
         valor_btc = self.client.get_asset_balance(asset='BTC')
         valor_btc_asset = valor_btc['asset']
@@ -137,11 +129,8 @@ class VentanaEstadisticas:
 
         boton_atras = tkinter.Button(ventana, text="Atras", command=lambda: self.atras(ventana))
         boton_atras.grid(columnspan=2, column=10, row=9, sticky="SE")
-        # self.ventana_carga.quitar_carga()
-        #print("Inicia la carga2")
-        #hilo.quitar_carga()
-        print("Quita carga")
         ventana.mainloop()
+
 
     def atras(self, ventana):
         ventana.destroy()

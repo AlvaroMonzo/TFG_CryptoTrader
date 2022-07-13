@@ -1,4 +1,6 @@
-Instrucciones del programa:
+Antes de empezar:
+Si tienes este error :Timestamp for this request was 1000ms ahead of the server's time. Por favor, sincroniza el reloj de tu ordenador.
+Se recomienda seguir los pasos de esta página: https://www.thewindowsclub.com/change-internet-time-update-interval-windows
 
 -------------------------------INICIO-------------------------------
 Para empezar, debes de tener el dinero en USDT.

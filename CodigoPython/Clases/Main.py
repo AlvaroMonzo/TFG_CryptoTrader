@@ -6,6 +6,7 @@ from CodigoPython.Clases import HiloOperacion
 if __name__ == "__main__":
 
     try:
+
         VentanaLogin.VentanaLogin()
     except Exception as e:
         print(e)

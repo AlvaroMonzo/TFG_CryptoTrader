@@ -1,27 +1,24 @@
-import csv
 import tkinter
 
 from binance.client import Client
 from CodigoPython.Clases import VentanaEleccion
 
 
-from matplotlib.pyplot import title
-import requests
-import json
-import pandas as pd
-import mplfinance as mpf
-
 class VentanaLogin:
     client = ""
 
     def __init__(self):
+        # Iniciamos los componentes en el constructor
         self.iniciar_componentes()
 
     def iniciar_componentes(self):
+        # Creamos la ventana
         ventana = tkinter.Tk()
         ventana.geometry("400x200+100+100")
         ventana.resizable(width=False, height=False)
         ventana.title("CRYPTO TRADER")
+
+        # Creamos los label
 
         labelAPIkey = tkinter.Label(ventana, text="API Key:")
         labelAPIkey.grid(padx=10, pady=10, row=0, column=0)
@@ -50,97 +47,25 @@ class VentanaLogin:
         SecretKey = textFieldSecretKey.get()
 
         try:
+            # Creamos el objeto cliente, que es el que utilizaremos en todo momento
             self.client = Client(APIkey, SecretKey)
-            # Hago una solicitud de prueba
-            self.client.get_asset_balance(asset='BTC')
             status = self.client.get_system_status()
+
+            #Si el estado del cliente es 1, estamos en mantenimiento y controlamos la salida.
+            #Sino es que el sistema es correcto
             if int(status['status']) == 1:
                 raise ValueError("Sistema en mantenimiento, espere un tiempo...")
-            '''candles = self.client.get_klines(symbol='BTCUSDT', interval='1d')
-
-            historical = self.client.get_historical_klines('BTCUSDT', Client.KLINE_INTERVAL_1DAY, '1 Jan 2011')
-
-            hist_df = pd.DataFrame(candles)
-            hist_df.columns = ['Open Time', 'Open', 'High', 'Low', 'Close', 'Volume', 'Close Time', 'Quote Asset Volume',
-                    'Number of Trades', 'TB Base Volume', 'TB Quote Volume', 'Ignore']
-
-            hist_df['Open Time'] = pd.to_datetime(hist_df['Open Time']/1000, unit='s')
-            hist_df['Close Time'] = pd.to_datetime(hist_df['Close Time']/1000, unit='s')
-
-            numeric_columns = ['Open', 'High', 'Low', 'Close', 'Volume', 'Quote Asset Volume', 'TB Base Volume', 'TB Quote Volume']
-
-            hist_df[numeric_columns] = hist_df[numeric_columns].apply(pd.to_numeric, axis=1)
-
-            hist_df.set_index('Close Time').tail(100)
-
-            mpf.plot(hist_df.set_index('Close Time').tail(120),
-                    type='candle', style='charles',
-                    volume=True,
-                    title='BTCUSDT Last 120 Days',
-                    mav=(10,20,30))'''
-
-            '''df=pd.DataFrame(candles)
-            print(df)
-            print(df.columns)'''
-            '''df = pd.DataFrame.from_records(candles,
-                               columns=['Open time','Open', 'High', 'Low','Close','Volume','Close time','Quote asset volume','Number of trades','Taker buy base asset volume','Taker buy quote asset volume','Can be ignored'],
-                               exclude=['Can be ignored'])
-
-            df.index = pd.DatetimeIndex(df['Open time'])
-            print(df)
-            print(df.columns)
-            '''
-            #mpl.plot(df)
-            '''info = self.client.get_account_snapshot(type='SPOT')
-            candles = self.client.get_klines(symbol='BNBBTC', interval=Client.KLINE_INTERVAL_30MINUTE)
-            apple_df = pd.Series(candles)
-            dt_range = pd.date_range(start="2020-03-01", end="2020-03-31")
-            apple_df = apple_df[apple_df.index.isin(dt_range)]
-            apple_df.head()
-            pd.Series(candles)
-            fplt.plot( apple_df, type='candle', title='Prueba', ylabel='Pruebay')
-            '''
+            #Borramos la ventana
             ventana.destroy()
-            # klines = self.client.get_historical_klines("BNBBTC", Client.KLINE_INTERVAL_1MINUTE, "1 day ago UTC")
-            # print(klines)
-            # print(type(klines))
-            # print(type(self.client.get_symbol_info('BTCUSDT')['filters'][3]['minNotional']))
-            # print(self.client.get_symbol_info('BTCUSDT')['filters'][3]['minNotional'])
-            # orders = self.client.get_open_orders(symbol='BTCUSDT')
-            # print(orders)
-            # print(self.client.get_asset_balance(asset='USDT'))
-            # order = self.client.order_market_buy(
-            #     symbol='ACHUSDT',
-            #     quantity=559)
 
-            # order = self.client.order_market_buy(
-            #    symbol='BTCUSDT',
-            #    quantity=0.00033)
-
-            # orders = self.client.get_open_orders(symbol='BTCUSDT')
-            # print(orders)
-
-            # print("Tipo de cliente es: " + str(type(self.client)))
-            # print(self.client.get_account())
-            # print(self.client.get_all_tickers())
-            # print(type(self.client.get_all_tickers()))
-            ##print(self.client.get_symbol_ticker(symbol="BTCUSDT"))
-            # print(type(self.client.get_symbol_ticker(symbol="BTCUSDT")))
-            # diccionario = self.client.get_symbol_ticker(symbol="BTCUSDT")
-            # print(type(diccionario['price']))
-            # miprecio=(float(diccionario['price']))
-            # print(miprecio)
-            # print(self.client.get_symbol_ticker(symbol="BTCUSDT"))
-            # print(self.client.get_symbol_ticker(symbol="BTCUSDT"))
-            # print(self.client.get_symbol_ticker(symbol="BTCUSDT"))
-            # print(self.client.get_symbol_ticker(symbol="BTCUSDT"))
-            # print(self.client.get_symbol_ticker(symbol="BTCUSDT"))
-
+            #Mostramos la ventana de elección y le pasamos el cliente
             VentanaEleccion.VentanaEleccion(self.client)
+
         except ValueError as e:
             cargando_label = tkinter.Label(ventana, text=e, fg="red")
             cargando_label.grid(row=2, column=0, columnspan=2)
         except Exception as e:
             cargando_label = tkinter.Label(ventana, text="Error, vuelve a introducir los datos...", fg="red")
             cargando_label.grid(row=2, column=0, columnspan=2)
+
             print(e)
