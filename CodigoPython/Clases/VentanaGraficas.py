@@ -116,6 +116,7 @@ class VentanaGraficas:
                     print("key:" + key)
                     if key == combobox_criptomoneda.get():
                         valorMaximo = variablesTransitorias.diccionario[key][0]
+                        valorMin = variablesTransitorias.diccionario[key][1]
                         mpf.plot(hist_df.set_index('Close Time').tail(numero_velas),
                                  hlines=dict(hlines=[valorMaximo, valorMin], colors=['g', 'r'], linestyle='-.'),
                                  type='candle', style='charles',

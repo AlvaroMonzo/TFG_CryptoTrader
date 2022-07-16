@@ -168,7 +168,7 @@ class VentanaInicio:
             self.repintar_USDT(label_USDT)
 
             boton_parar = tkinter.Button(ventana, text="Parar",
-                                                 command=lambda: self.parar_hilo(hilo, label_hilo, boton_instrucciones,
+                                                 command=lambda: self.parar_hilo(hilo, label_hilo, boton_parar,
                                                                                  capital_value,
                                                                                  label_USDT))
             boton_parar.grid(column=4, row=fila_label)

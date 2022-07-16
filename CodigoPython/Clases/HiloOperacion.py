@@ -13,7 +13,7 @@ class MiHilo(threading.Thread):
                  args=(), kwargs=None, *, daemon=None):
         super().__init__(group=group, target=target, name=name,
                          daemon=daemon)
-        #Creamos el hilo y le asignamos todos los valores correspondientes
+        # Creamos el hilo y le asignamos todos los valores correspondientes
         self.capital = args[0]
         self.stop = args[1]
         self.profit = args[2]
@@ -22,7 +22,7 @@ class MiHilo(threading.Thread):
         self.criptomoneda = args[5]
         self.client = args[6]
 
-        #Valores que utilizaremos dentro de la función run
+        # Valores que utilizaremos dentro de la función run
         self.precio_anterior = ""
         self.precio_actual = ""
         self.precio_superior = ""
@@ -33,10 +33,12 @@ class MiHilo(threading.Thread):
         self.terminado = False
         self.vender = False
         self.comprar = True
+        self.calculo_beneficios = 0.0
+        self.calculo_beneficiosUSDT = 0.0
         threading.current_thread().setName(self.criptomoneda)
         print("Se inicia el hilo: " + threading.current_thread().getName())
 
-        #Valores que utilizaremos para exportar el csv
+        # Valores que utilizaremos para exportar el csv
         from datetime import datetime
         self.dia = datetime.now().day
         self.mes = datetime.now().month
@@ -45,15 +47,17 @@ class MiHilo(threading.Thread):
         self.minuto = datetime.now().minute
         self.datos_csv = []
 
-
     def run(self):
-        #Asignamos el valor
+        # Asignamos el valor
         self.capital_USDT = self.capital
         self.precio_anterior = float(self.client.get_symbol_ticker(symbol=self.criptomoneda)['price'])
+
         # Precio por el cual si es mayor venderemos
         self.precio_superior = self.precio_anterior + self.precio_anterior * self.subida
+
         # Precio por el cual si es menor compraremos
         self.precio_inferior = self.precio_anterior - self.precio_anterior * self.bajada
+
         # LOT_SIZE Cantidad minima de compra
         lot_size = (self.client.get_symbol_info(str(self.criptomoneda))['filters'][2]['minQty'])
 
@@ -73,12 +77,152 @@ class MiHilo(threading.Thread):
 
         while not self.terminado:
             try:
-                #Metemos en el diccionario el diccionario el precio superior y el inferior
-                variablesTransitorias.añadirDicc(self.criptomoneda,[self.precio_superior,self.precio_inferior])
+                # Metemos en el diccionario el diccionario el precio superior y el inferior
+                variablesTransitorias.añadirDicc(self.criptomoneda, [self.precio_superior, self.precio_inferior])
+
+                # Cada 200 milisegundos realizamos una comprobación del precio
+                time.sleep(0.2)
+                self.precio_actual = float(self.client.get_symbol_ticker(symbol=self.criptomoneda)['price'])
+
+                # Simulación
+                print("-------------------------------------------------------------")
+                print("Precio Anterior: " + str(self.precio_anterior))
+                print("Precio Superior: " + str(self.precio_superior))
+                print("Precio Inferior: " + str(self.precio_inferior))
+                print("Precio Actual: " + str(self.precio_actual))
+                print("Capital cripto: " + str(self.capital_cripto))
+                print("Capital USDT: " + str(self.capital_USDT))
+                print("Calculo beneficios USDT: " + str(self.calculo_beneficiosUSDT))
+                print("Calculo beneficios final: " + str(self.calculo_beneficios))
+
+                # Baja el precio y compramos
+                if self.precio_actual < self.precio_inferior and self.comprar:
+
+                    print("Compramos a: " + str(self.precio_actual))
+
+                    # Calculamos la cantidad que vamos a comprar
+                    self.calculo_beneficiosUSDT = self.capital_USDT
+                    cantidad_compra = self.capital_USDT / self.precio_actual
+                    n = str(cantidad_compra)
+                    n = n[:n.index('.') + self.minimo]
+                    cantidad_compra = (float(n))
+
+                    # Realizamos la orden
+                    order = self.client.order_market_buy(
+                        symbol=self.criptomoneda,
+                        quantity=cantidad_compra)
+
+                    # Una vez con la orden realizada, recalulamos valores.
+                    self.capital_cripto = cantidad_compra
+                    self.capital_USDT = 0
+
+                    self.precio_anterior = self.precio_actual
+                    self.precio_inferior = self.precio_actual - self.precio_anterior * self.bajada
+                    self.precio_superior = self.precio_actual + self.precio_anterior * self.subida
+
+                    # Pasamos al estado venta
+                    self.vender = True
+                    self.comprar = False
+
+                    # Almacenamos este movimiento en un CSV
+                    self.datos_csv.append(['Compra', str(cantidad_compra), str(self.precio_actual)])
+
+                # Sube el precio y vendemos
+                elif self.precio_actual > self.precio_superior and self.vender:
+
+                    print("Vendemos a:" + str(self.precio_actual))
+
+                    # Calculamos la cantidad de venta
+                    n = str(self.capital_cripto)
+                    n = n[:n.index('.') + self.minimo]
+                    cantidad_venta = (float(n))
+
+                    # Hacemos la orden de venta
+
+                    order = self.client.order_market_sell(
+                        symbol=self.criptomoneda,
+                        quantity=cantidad_venta)
+
+                    # Una vez con la orden realizada, recalulamos valores.
+                    self.capital_USDT = self.precio_actual * self.capital_cripto
+                    self.calculo_beneficios += self.calculo_beneficiosUSDT - self.capital_USDT
+                    self.calculo_beneficiosUSDT = 0
+                    self.capital_cripto = 0
+
+                    self.precio_anterior = self.precio_actual
+                    self.precio_inferior = self.precio_actual - self.precio_anterior * self.bajada
+                    self.precio_superior = self.precio_actual + self.precio_anterior * self.subida
+
+                    # Pasamos al estado de compra
+                    self.comprar = True
+                    self.vender = False
+
+                    # Almacenamos el movimiento en un CSV
+                    self.datos_csv.append(['Venta', str(cantidad_venta), str(self.precio_actual)])
+
+                    # Si vendemos y tenemos el profit, hemos conseguido el objetivo
+                    # Terminaremos el hilo y lo cerraremos
+                    if self.calculo_beneficios + self.capital_USDT >= self.profit:
+                        print("Salto el take profit")
+
+                        # Almacenamos el movimiento
+                        self.datos_csv.append(['Take profit', str(self.calculo_beneficios + self.capital_USDT),
+                                          str(self.precio_actual)])
+
+                        # Paramos el hilo
+                        self.parar_hilo()
+
+                # Si estamos para vender y no para de bajar, deberá saltar el stop loose
+                elif self.vender and (self.capital_cripto * self.precio_actual) < self.stop:
+
+                    # Vendemos las criptomonedas que tengamos
+                    print("Salto el stop loose")
+
+                    # Calculamos la cantidad de venta
+                    n = str(self.capital_cripto)
+                    n = n[:n.index('.') + self.minimo]
+                    cantidad_venta = (float(n))
+
+                    # Hacemos la orden de venta
+                    order = self.client.order_market_sell(
+                        symbol=self.criptomoneda,
+                        quantity=cantidad_venta)
+
+                    # Almacenamos el movimiento
+                    self.datos_csv.append(['Stop loose', str(self.precio_actual * self.capital_cripto),
+                                      str(self.precio_actual)])
+
+                    # Paramos el hilo
+                    self.parar_hilo()
+                '''
+                
+                if self.precio_actual>self.precio_superior and self.vender:
+                    #Vendemos lo que tenemos a precio de mercado.
+                    print("Vendemos a: " + str(self.precio_actual))
+                    #Calulamos el mínimo
+                    n = str(self.capital_cripto)
+                    n = n[:n.index('.') + self.minimo]
+                    cantidad_venta = (float(n))
+                    #Y realizamos la orden de venta
+                    order = self.client.order_market_sell(
+                        symbol=self.criptomoneda,
+                        quantity=cantidad_venta)
+                    self.
+                '''
+
+
+            except Exception as e:
+                print(e)
+
+        '''
+        while not self.terminado:
+            try:
+                # Metemos en el diccionario el diccionario el precio superior y el inferior
+                variablesTransitorias.añadirDicc(self.criptomoneda, [self.precio_superior, self.precio_inferior])
 
                 time.sleep(0.2)
 
-                #Precio actual es el precio de la criptomoneda en dolares
+                # Precio actual es el precio de la criptomoneda en dolares
                 self.precio_actual = float(self.client.get_symbol_ticker(symbol=self.criptomoneda)['price'])
 
                 # Simulacion
@@ -91,8 +235,7 @@ class MiHilo(threading.Thread):
                 print("Capital USDT: " + str(self.capital_USDT))
 
                 if (self.precio_actual > self.precio_superior and self.vender):
-                    # Ha subido el precio, por lo tanto vendemos y reseteamos los valores
-                    # Meter un log de venta
+                    # Ha subido el precio respecto al de referencia, por lo tanto vendemos y reseteamos los valores
                     print("Vendemos a: " + str(self.precio_actual))
                     n = str(self.capital_cripto)
                     n = n[:n.index('.') + self.minimo]
@@ -108,19 +251,14 @@ class MiHilo(threading.Thread):
                     self.precio_inferior = self.precio_anterior - self.precio_anterior * self.bajada
                     self.vender = False
                     self.comprar = True
-                    self.datos_csv = ['Venta',str(cantidad_venta),str(self.precio_actual)]
-                    logging.critical('Venta ' + str(self.profit) + ' con ' + str(
-                            self.precio_actual * self.capital_cripto) + " $")
+                    self.datos_csv = ['Venta', str(cantidad_venta), str(self.precio_actual)]
 
-                elif (
-                        self.precio_actual < self.precio_inferior and self.comprar):  # Ha bajado el precio, por lo tanto compramos y reseteamos los valores
-                    # Meter un log de compra
-                    print("Compramos a: " + str(self.precio_actual))
+                elif (self.precio_actual < self.precio_inferior and self.comprar):
+                    # Ha bajado el precio, por lo tanto compramos y reseteamos los valores
                     cantidad_compra = self.capital_USDT / self.precio_actual
                     n = str(cantidad_compra)
                     n = n[:n.index('.') + self.minimo]
                     cantidad_compra = (float(n))
-                    print("Cantidad de compra: " + str(cantidad_compra))
                     order = self.client.order_market_buy(
                         symbol=self.criptomoneda,
                         quantity=cantidad_compra)
@@ -132,9 +270,9 @@ class MiHilo(threading.Thread):
                     self.precio_inferior = self.precio_anterior - self.precio_anterior * self.bajada
                     self.vender = True
                     self.comprar = False
-                    self.datos_csv = ['Compra',str(cantidad_compra),str(self.precio_actual)]
+                    self.datos_csv = ['Compra', str(cantidad_compra), str(self.precio_actual)]
                     logging.critical('Compra ' + str(cantidad_compra) + ' con ' + str(
-                                self.precio_actual * self.capital_cripto) + " $")
+                        self.precio_actual * self.capital_cripto) + " $")
 
                 else:
                     if self.vender and self.comprar:
@@ -150,10 +288,8 @@ class MiHilo(threading.Thread):
                             order = self.client.order_market_sell(
                                 symbol=self.criptomoneda,
                                 quantity=cantidad_venta)
-                            self.datos_csv = ['Take profit',str(cantidad_venta),str(self.precio_actual)]
+                            self.datos_csv = ['Take profit', str(cantidad_venta), str(self.precio_actual)]
 
-                            logging.critical('Hemos llegado al profit de ' + str(self.profit) + ' con ' + str(
-                                self.precio_actual * self.capital_cripto) + " $")
                         elif (self.precio_actual * self.capital_cripto) < self.stop:
                             self.terminado = True
                             n = str(self.capital_cripto)
@@ -162,10 +298,9 @@ class MiHilo(threading.Thread):
                             order = self.client.order_market_sell(
                                 symbol=self.criptomoneda,
                                 quantity=cantidad_venta)
-                            self.datos_csv = ['Stop',str(cantidad_venta),str(self.precio_actual)]
+                            self.datos_csv = ['Stop', str(cantidad_venta), str(self.precio_actual)]
                             logging.critical('Stop ' + str(cantidad_compra) + ' con ' + str(
                                 self.precio_actual * self.capital_cripto) + " $")
-
 
                         print("Nos toca vender")
                     elif self.comprar:
@@ -181,7 +316,7 @@ class MiHilo(threading.Thread):
                             order = self.client.order_market_sell(
                                 symbol=self.criptomoneda,
                                 quantity=cantidad_venta)
-                            self.datos_csv = ['Take profit',str(cantidad_venta),str(self.precio_actual)]
+                            self.datos_csv = ['Take profit', str(cantidad_venta), str(self.precio_actual)]
                             logging.critical('Hemos llegado al profit de ' + str(self.profit) + ' con ' + str(
                                 self.precio_actual * self.capital_cripto) + " $")
 
@@ -195,7 +330,7 @@ class MiHilo(threading.Thread):
                             order = self.client.order_market_sell(
                                 symbol=self.criptomoneda,
                                 quantity=cantidad_venta)
-                            self.datos_csv = ['Stop',str(cantidad_venta),str(self.precio_actual)]
+                            self.datos_csv = ['Stop', str(cantidad_venta), str(self.precio_actual)]
                             logging.critical('Stop ' + str(cantidad_compra) + ' con ' + str(self.precio_actual) + " $")
 
                         print("Nos toca comprar")
@@ -203,21 +338,22 @@ class MiHilo(threading.Thread):
                 time.sleep(0.2)
             except Exception as e:
                 print(e)
+'''
 
     def parar_hilo(self):
         self.terminado = True
         variablesTransitorias.diccionario.pop(self.criptomoneda)
-        logging.critical("HILO PARADO MANUALMENTE")
         # Creamos el csv con la hora de inicio y la criptomoneda
-
-        path_csv = ('C:'+ '\\'+ 'GK'+ '\\'+ 'TFG_CryptoTrader'+ '\\'+ 'Historial'+ '\\'+ str(str(self.criptomoneda) + '_' + str(self.anno) + '_' + str(self.mes) + '_' + str(self.dia) + '_' + str(self.hora) + '_' + str(self.minuto)) + '.csv')
-
+        path_csv = ('C:' + '\\' + 'GK' + '\\' + 'TFG_CryptoTrader' + '\\' + 'Historial' + '\\' + str(
+            str(self.criptomoneda) + '_' + str(self.anno) + '_' + str(self.mes) + '_' + str(self.dia) + '_' + str(
+                self.hora) + '_' + str(self.minuto)) + '.csv')
 
         myFile = open(path_csv, 'w')
         with myFile:
-            fieldnames=["Estado", "Cantidad", "Precio"]
-            writer=csv.DictWriter(myFile,fieldnames=fieldnames)
+            fieldnames = ["Estado", "Cantidad", "Precio"]
+            writer = csv.DictWriter(myFile, fieldnames=fieldnames)
             writer.writeheader()
+
             writer.writerows(self.datos_csv)
 
     def get_capital(self):
