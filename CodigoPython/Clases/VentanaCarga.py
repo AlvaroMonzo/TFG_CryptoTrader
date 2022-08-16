@@ -26,6 +26,7 @@ class VentanaCarga(threading.Thread):
         progressbar.start()
         self.ventana_e.mainloop()
     def quitar_carga(self):
+
         self.ventana_e.destroy()
         print("Descarga run")
         #self.ventana_e.destroy()
