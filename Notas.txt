@@ -21,4 +21,7 @@ https://stackoverflow.com/questions/51358147/fetch-candlestick-kline-data-from-b
 WFvHi2sNONLatAPXFueeH1LyiFGFSCa8TKENqDMKY1vz236M6ABnefDxw5dkTGZm
 Z45Y85Qn4eN0nJbb2rd6wStVyJcAXd19UbqRgcEEYsCS7NK3QduyHRC3XGSJURBh
 
+ejemplo memoria: https://repositorio.uam.es/bitstream/handle/10486/679808/blazquez_pardo_roberto_tfg.pdf?sequence=1
+
+Memoria https://www.scribbr.es/estructura/redactar-una-introduccion-para-tu-tfg/
 
