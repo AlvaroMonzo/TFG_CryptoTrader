@@ -19,7 +19,7 @@ class VentanaMonedas:
 
     def iniciar_componentes(self):
         ventana = tkinter.Tk()
-        ventana.geometry("1200x580+100+50")
+        ventana.geometry("900x580+100+50")
         ventana.resizable(width=False, height=False)
         ventana.title("CRYPTO TRADER")
 
@@ -29,11 +29,9 @@ class VentanaMonedas:
         # This example uses Python 2.7 and the python-request library.
 
         from requests import Request, Session
-        from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
-        import json
 
-        url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest'
-        url = 'https://pro-api.coinmarketcap.com/v1/global-metrics/quotes/latest'
+
+
         url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest'
         #        parameters = {
         #           'start': '1',
@@ -58,13 +56,13 @@ class VentanaMonedas:
             if float(moneda['cmc_rank']) <= 20:
                 label_moneda = tkinter.Label(ventana, text="Símbolo:" + (moneda['symbol']))
                 label_moneda.grid(column=columna, row=fila)
-                volumen =  moneda['quote']['USD']['volume_24h']
+                volumen = moneda['quote']['USD']['volume_24h']
                 columna+=1
                 if volumen>0.0:
-                    label_volumen = tkinter.Label(ventana,text=" Volumen 24h: " + "{:.2f}".format(volumen),fg="lime green")
+                    label_volumen = tkinter.Label(ventana,text=" Volumen 24h: " + "{:.2f}".format(volumen))
                     label_volumen.grid(column=columna, row=fila)
                 else:
-                    label_volumen = tkinter.Label(ventana,text=" Volumen 24h: " + "{:.2f}".format(volumen),fg="firebrick")
+                    label_volumen = tkinter.Label(ventana,text=" Volumen 24h: " + "{:.2f}".format(volumen))
                     label_volumen.grid(column=columna, row=fila)
 
                 precio = moneda['quote']['USD']['price']

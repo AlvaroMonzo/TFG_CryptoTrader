@@ -1,13 +1,5 @@
 import tkinter
 
-from dateparser.parser import tokenizer
-
-from CodigoPython.Clases import VentanaCarga
-
-from binance.client import Client
-
-from binance.client import *
-
 from CodigoPython.Clases import VentanaEleccion
 
 
@@ -22,7 +14,7 @@ class VentanaEstadisticas:
     def iniciar_componentes(self):
 
         ventana = tkinter.Tk()
-        ventana.geometry("800x280+100+50")
+        ventana.geometry("500x280+100+50")
         ventana.resizable(width=False, height=False)
         ventana.title("CRYPTO TRADER")
 
@@ -112,7 +104,7 @@ class VentanaEstadisticas:
             text=cadena_predefinida.format(str(valor_avax_asset), str(valor_avax_free), str(valor_avax_locked)))
         label_avax.grid(columnspan=2, column=0, row=9)
 
-        label_total_dolares = tkinter.Label(ventana)
+        ''' label_total_dolares = tkinter.Label(ventana)
 
         total_dolares = float(self.client.get_symbol_ticker(symbol="ADAUSDT")['price']) * float(valor_ada_free) \
                         + float(self.client.get_symbol_ticker(symbol="AVAXUSDT")['price']) * float(valor_avax_free) \
@@ -125,7 +117,7 @@ class VentanaEstadisticas:
                         + float(self.client.get_symbol_ticker(symbol="XRPUSDT")['price']) * float(valor_xrp_free)
 
         label_total_dolares.configure(text=str(round(total_dolares, 2)) + " $")
-        label_total_dolares.grid(column=10, row=0)
+        label_total_dolares.grid(column=10, row=0)'''
 
         boton_atras = tkinter.Button(ventana, text="Atras", command=lambda: self.atras(ventana))
         boton_atras.grid(columnspan=2, column=10, row=9, sticky="SE")

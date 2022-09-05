@@ -1,18 +1,14 @@
 import tkinter
 from tkinter import ttk
 
-from CodigoPython.Clases import VentanaLogin
 from CodigoPython.Clases import variablesTransitorias
 from CodigoPython.Clases import VentanaInstrucciones
 from CodigoPython.Clases import VentanaEleccion
 from CodigoPython.Clases import VentanaInicio
 
-from matplotlib.pyplot import title
-import requests
-import json
 import pandas as pd
 import mplfinance as mpf
-from binance.client import Client
+
 
 
 class VentanaGraficas:
@@ -112,8 +108,6 @@ class VentanaGraficas:
             # tail(120)
             if variablesTransitorias.diccionario:
                 for key in variablesTransitorias.diccionario:
-                    #print('combobox_criptomoneda.get()' + combobox_criptomoneda.get())
-                    print("key:" + key)
                     if key == combobox_criptomoneda.get():
                         valorMaximo = variablesTransitorias.diccionario[key][0]
                         valorMin = variablesTransitorias.diccionario[key][1]
@@ -123,7 +117,15 @@ class VentanaGraficas:
                                  volume=True,
                                  title=str(combobox_criptomoneda.get()) + " intervalo de " + (combobox_intervalo.get()),
                                  mav=(10, 20, 30))
+                    else:
+                        mpf.plot(hist_df.set_index('Close Time').tail(numero_velas),
+                                 type='candle', style='charles',
+                                 volume=True,
+                                 title=str(combobox_criptomoneda.get()) + " intervalo de " + (combobox_intervalo.get()),
+                                 mav=(10, 20, 30))
+
             else:
+
                 mpf.plot(hist_df.set_index('Close Time').tail(numero_velas),
                          type='candle', style='charles',
                          volume=True,

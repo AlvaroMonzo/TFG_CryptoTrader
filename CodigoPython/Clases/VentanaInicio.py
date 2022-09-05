@@ -1,13 +1,10 @@
 import tkinter
 from tkinter import ttk
 
-from yarl._url import cached_property
-from CodigoPython.Clases import VentanaCarga, VentanaGraficas
-from binance.client import Client
-
-from CodigoPython.Clases import VentanaEleccion
-from CodigoPython.Clases import VentanaInstrucciones
 from CodigoPython.Clases import HiloOperacion
+from CodigoPython.Clases import VentanaEleccion
+from CodigoPython.Clases import VentanaGraficas
+from CodigoPython.Clases import VentanaInstrucciones
 
 hilos = []  # Listado de hilos activos
 fila_label = 0  # Fila de cada hilo
@@ -27,7 +24,7 @@ class VentanaInicio:
         # self.ventana_carga.iniciar_carga()
         global fila_label, hilos
         # Creamos un pequeño listado e iniciamos la ventana
-        lista_criptomonedas = ["BTCUSDT", "AAVEUSDT", "ADAUSDT", "BNBUSDT"]
+        lista_criptomonedas = ["BTCUSDT", "AAVEUSDT", "ADAUSDT", "BNBUSDT","ETHUSDT"]
         ventana = tkinter.Tk()
         ventana.geometry("800x280+100+50")
         ventana.resizable(width=False, height=False)
@@ -70,7 +67,7 @@ class VentanaInicio:
         self.label_min_capital = tkinter.Label(ventana, text="Capital mínimo: ")
         self.label_min_capital.grid(column=2, row=2)
 
-        boton_atras = tkinter.Button(ventana, text="Atras", command=lambda: self.atras(ventana))
+        boton_atras = tkinter.Button(ventana, text="Atrás", command=lambda: self.atras(ventana))
         boton_atras.grid(sticky='SE')
 
         boton_grafica = tkinter.Button(ventana, text="Ver gráfica", command=lambda: self.ver_graficas(ventana))
@@ -91,11 +88,11 @@ class VentanaInicio:
         boton_inicio.grid(sticky='SE')
 
         # Datos que pongo yo:
-        text_field_capital.insert(0, 12)
-        text_field_proc_bajada.insert(0, 1)
-        text_field_proc_subida.insert(0, 1)
-        text_field_profit.insert(0, 13)
-        text_field_stop.insert(0, 11)
+        text_field_capital.insert(0, 100)
+        text_field_proc_bajada.insert(0, 0.001)
+        text_field_proc_subida.insert(0, 0.001)
+        text_field_profit.insert(0, 110)
+        text_field_stop.insert(0, 90)
 
         # Recorremos la lista de hilos
         for i in range(len(hilos)):

@@ -1,7 +1,4 @@
 from CodigoPython.Clases import VentanaLogin
-from CodigoPython.Clases import VentanaCarga
-from CodigoPython.Clases import VentanaEleccion
-from CodigoPython.Clases import HiloOperacion
 
 if __name__ == "__main__":
 

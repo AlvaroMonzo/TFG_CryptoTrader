@@ -1,8 +1,6 @@
 import threading
 import time
-import os, platform, logging
-import csv
-from binance.enums import *
+
 import pandas as pd
 
 from CodigoPython.Clases import variablesTransitorias
@@ -94,8 +92,8 @@ class MiHilo(threading.Thread):
                 print("Precio Actual: " + str(self.precio_actual))
                 print("Capital cripto: " + str(self.capital_cripto))
                 print("Capital USDT: " + str(self.capital_USDT))
-                print("Calculo beneficios USDT: " + str(self.calculo_beneficiosUSDT))
-                print("Calculo beneficios final: " + str(self.calculo_beneficios))
+                #print("Calculo beneficios USDT: " + str(self.calculo_beneficiosUSDT))
+                #print("Calculo beneficios final: " + str(self.calculo_beneficios))
 
                 # Baja el precio y compramos
                 if self.precio_actual < self.precio_inferior and self.comprar:
@@ -169,7 +167,6 @@ class MiHilo(threading.Thread):
 
                     print("Salta la venta")
                     print(self.df)
-
 
                     # Si vendemos y tenemos el profit, hemos conseguido el objetivo
                     # Terminaremos el hilo y lo cerraremos
@@ -368,7 +365,6 @@ class MiHilo(threading.Thread):
 
         self.df.to_csv("test.csv", sep=";", index=False)
         print(self.df)
-        print("pasa por aqui")
 
     def get_capital(self):
         print("pasa por get_capital")
