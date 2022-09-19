@@ -14,7 +14,7 @@ class VentanaLogin:
     def iniciar_componentes(self):
         # Creamos la ventana
         ventana = tkinter.Tk()
-        ventana.geometry("400x200+100+100")
+        ventana.geometry("400x150+100+100")
         ventana.resizable(width=False, height=False)
         ventana.title("CRYPTO TRADER")
 
@@ -47,19 +47,21 @@ class VentanaLogin:
         SecretKey = textFieldSecretKey.get()
 
         try:
+
             # Creamos el objeto cliente, que es el que utilizaremos en todo momento
             self.client = Client(APIkey, SecretKey)
             status = self.client.get_system_status()
-
+            self.client.get_asset_balance(asset='BTC')
             #Si el estado del cliente es 1, estamos en mantenimiento y controlamos la salida.
             #Sino es que el sistema es correcto
             if int(status['status']) == 1:
                 raise ValueError("Sistema en mantenimiento, espere un tiempo...")
-            #Borramos la ventana
-            ventana.destroy()
+            else:
+                #Borramos la ventana
+                ventana.destroy()
 
-            #Mostramos la ventana de elección y le pasamos el cliente
-            VentanaEleccion.VentanaEleccion(self.client)
+                #Mostramos la ventana de elección y le pasamos el cliente
+                VentanaEleccion.VentanaEleccion(self.client)
 
         except ValueError as e:
             cargando_label = tkinter.Label(ventana, text=e, fg="red")

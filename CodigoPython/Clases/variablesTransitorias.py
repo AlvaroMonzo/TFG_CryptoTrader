@@ -1,7 +1,7 @@
 class Variables:
     pass
-variables = Variables()
+passvariables = Variables()
 diccionario = {}
-def añadirDicc(clave,valor):
+def annadirDicc(clave, valor):
     diccionario[clave] = valor
 

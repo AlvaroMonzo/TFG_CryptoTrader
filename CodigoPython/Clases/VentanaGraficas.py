@@ -1,14 +1,13 @@
 import tkinter
 from tkinter import ttk
 
-from CodigoPython.Clases import variablesTransitorias
-from CodigoPython.Clases import VentanaInstrucciones
+import mplfinance as mpf
+import pandas as pd
+
 from CodigoPython.Clases import VentanaEleccion
 from CodigoPython.Clases import VentanaInicio
-
-import pandas as pd
-import mplfinance as mpf
-
+from CodigoPython.Clases import VentanaInstrucciones
+from CodigoPython.Clases import variablesTransitorias
 
 
 class VentanaGraficas:

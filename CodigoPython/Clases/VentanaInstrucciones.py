@@ -1,7 +1,6 @@
 import tkinter
-from CodigoPython.Clases import VentanaCarga
-from binance.client import Client
-from CodigoPython.Clases import VentanaEleccion, VentanaGraficas,VentanaMonedas
+
+from CodigoPython.Clases import VentanaEleccion, VentanaGraficas, VentanaMonedas
 from CodigoPython.Clases import VentanaInicio
 
 

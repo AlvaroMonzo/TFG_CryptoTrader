@@ -1,10 +1,9 @@
 import tkinter
 
-from CodigoPython.Clases import VentanaLogin, VentanaGraficas, VentanaMonedas
 from CodigoPython.Clases import VentanaEstadisticas
-from CodigoPython.Clases import VentanaInstrucciones
 from CodigoPython.Clases import VentanaInicio
-from CodigoPython.Clases import VentanaCarga
+from CodigoPython.Clases import VentanaInstrucciones
+from CodigoPython.Clases import VentanaLogin, VentanaGraficas, VentanaMonedas
 
 
 class VentanaEleccion:
@@ -19,7 +18,7 @@ class VentanaEleccion:
     def iniciar_componentes(self):
 
         ventana_e = tkinter.Tk()
-        ventana_e.geometry("800x280+100+50")
+        ventana_e.geometry("720x160+100+50")
         ventana_e.resizable(width=False, height=False)
         ventana_e.title("CRYPTO TRADER")
         boton_cuenta = tkinter.Button(ventana_e, text="Tu cuenta",  width=15, height=7,

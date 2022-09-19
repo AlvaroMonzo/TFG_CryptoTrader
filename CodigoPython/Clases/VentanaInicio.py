@@ -173,6 +173,10 @@ class VentanaInicio:
             fila_label += 1
             error_label.grid_forget()
 
+        except ValueError as e:
+            error_label.grid(sticky='SE')
+            error_label.configure(text="Los decimales deben ir por puntos y no por comas")
+        # Control de entradas
         except Exception as e:
             error_label.grid(sticky='SE')
             error_label.configure(text=e)

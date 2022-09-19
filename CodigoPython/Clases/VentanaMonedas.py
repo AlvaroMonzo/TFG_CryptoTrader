@@ -1,13 +1,10 @@
 import tkinter
-from tkinter import ttk
 
-from CodigoPython.Clases import VentanaInstrucciones
+import requests
+
 from CodigoPython.Clases import VentanaEleccion
 from CodigoPython.Clases import VentanaInicio
-
-import pandas as pd
-import mplfinance as mpf
-import requests
+from CodigoPython.Clases import VentanaInstrucciones
 
 
 class VentanaMonedas:
@@ -26,18 +23,10 @@ class VentanaMonedas:
         error_label = tkinter.Label(ventana, text="Datos introducidos incorrectos.", fg="red")
         error_label.grid_forget()
 
-        # This example uses Python 2.7 and the python-request library.
 
-        from requests import Request, Session
-
-
+        from requests import Session
 
         url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest'
-        #        parameters = {
-        #           'start': '1',
-        #          'limit': '5000',
-        #         'convert': 'USD'
-        #    }
         headers = {
             'Accepts': 'application/json',
             'X-CMC_PRO_API_KEY': '334a6f24-17e0-4efb-ab4d-7033e75af5fd',
@@ -48,7 +37,7 @@ class VentanaMonedas:
 
         json = requests.get(url, headers=headers).json()
         monedas = json['data']
-        # print(monedas)
+
         fila = 0
 
         for moneda in monedas:

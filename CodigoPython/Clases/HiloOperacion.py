@@ -78,7 +78,7 @@ class MiHilo(threading.Thread):
         while not self.terminado:
             try:
                 # Metemos en el diccionario el diccionario el precio superior y el inferior
-                variablesTransitorias.añadirDicc(self.criptomoneda, [self.precio_superior, self.precio_inferior])
+                variablesTransitorias.annadirDicc(self.criptomoneda, [self.precio_superior, self.precio_inferior])
 
                 # Cada 200 milisegundos realizamos una comprobación del precio
                 time.sleep(0.2)
@@ -229,7 +229,7 @@ class MiHilo(threading.Thread):
         while not self.terminado:
             try:
                 # Metemos en el diccionario el diccionario el precio superior y el inferior
-                variablesTransitorias.añadirDicc(self.criptomoneda, [self.precio_superior, self.precio_inferior])
+                variablesTransitorias.aadirDicc(self.criptomoneda, [self.precio_superior, self.precio_inferior])
 
                 time.sleep(0.2)
 
