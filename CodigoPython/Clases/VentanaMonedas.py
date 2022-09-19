@@ -29,7 +29,7 @@ class VentanaMonedas:
         url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest'
         headers = {
             'Accepts': 'application/json',
-            'X-CMC_PRO_API_KEY': '334a6f24-17e0-4efb-ab4d-7033e75af5fd',
+            'X-CMC_PRO_API_KEY': 'Introduce la clave API de CoinMarketCap',
         }
 
         session = Session()
