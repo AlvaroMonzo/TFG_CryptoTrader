@@ -363,7 +363,6 @@ class MiHilo(threading.Thread):
             str(str(self.criptomoneda) + '_' + str(self.anno) + '_' + str(self.mes) + '_' + str(self.dia) + '_' + str(
                 self.hora) + '_' + str(self.minuto)) + '.csv', sep=";", index=False)
 
-        self.df.to_csv("test.csv", sep=";", index=False)
         print(self.df)
 
     def get_capital(self):

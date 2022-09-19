@@ -25,14 +25,14 @@ class VentanaLogin:
 
         textFieldAPIkey = tkinter.Entry(ventana, bg="white", width=40)
         textFieldAPIkey.grid(padx=10, pady=10, row=0, column=1)
-        textFieldAPIkey.insert(0, "WFvHi2sNONLatAPXFueeH1LyiFGFSCa8TKENqDMKY1vz236M6ABnefDxw5dkTGZm")
+        textFieldAPIkey.insert(0, "APIKEY")
 
         labelSecretKey = tkinter.Label(ventana, text="Secret Key:")
         labelSecretKey.grid(padx=10, pady=10, row=1, column=0)
 
         textFieldSecretKey = tkinter.Entry(ventana, bg="white", width=40)
         textFieldSecretKey.grid(padx=10, pady=10, row=1, column=1)
-        textFieldSecretKey.insert(0, "Z45Y85Qn4eN0nJbb2rd6wStVyJcAXd19UbqRgcEEYsCS7NK3QduyHRC3XGSJURBh")
+        textFieldSecretKey.insert(0, "SECREY KEY")
 
         buttonLogin = tkinter.Button(ventana, text="Login",
                                      command=lambda: self.login(textFieldAPIkey, textFieldSecretKey, ventana))
